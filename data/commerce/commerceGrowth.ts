@@ -1,9 +1,16 @@
 import type { CommercePageConfig } from '~/types/commerce'
+import { commerceMarkets, defaultCommerceLocale } from './markets'
 
 export const commerceGrowthConfig: CommercePageConfig = {
   pageType: 'commerce_growth',
   eventPrefix: 'commerce',
   slug: '/use-cases/commerce-growth',
+  locale: {
+    ...defaultCommerceLocale,
+    ...commerceMarkets.southeast_asia,
+    audience: 'commerce_growth',
+    audienceLabel: 'Commerce Growth Suite'
+  },
   seo: {
     title: 'DopaMatrix Commerce Growth Suite | Store, Product & B2B Growth',
     description: 'Compile store, SKU and B2B business assets into conversion-focused content matrices for visits, orders and inquiries.',

@@ -1,9 +1,16 @@
 import type { CommercePageConfig } from '~/types/commerce'
+import { commerceMarkets, defaultCommerceLocale } from './markets'
 
 export const homeConfig: CommercePageConfig = {
   pageType: 'home',
   eventPrefix: 'home',
   slug: '/',
+  locale: {
+    ...defaultCommerceLocale,
+    ...commerceMarkets.southeast_asia,
+    audience: 'home',
+    audienceLabel: 'General Commerce'
+  },
   seo: {
     title: 'DopaMatrix Commerce Growth Suite',
     description: 'A lightweight entry to DopaMatrix Commerce Growth Suite for local brands, ecommerce products and B2B leads.',

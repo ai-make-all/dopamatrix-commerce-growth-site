@@ -1,9 +1,16 @@
 import type { CommercePageConfig } from '~/types/commerce'
+import { commerceMarkets, defaultCommerceLocale } from './markets'
 
 export const localBrandsConfig: CommercePageConfig = {
   pageType: 'local_brands',
   eventPrefix: 'local',
   slug: '/use-cases/local-brands',
+  locale: {
+    ...defaultCommerceLocale,
+    ...commerceMarkets.philippines,
+    audience: 'local_brands',
+    audienceLabel: 'Local Brands'
+  },
   seo: {
     title: 'DopaMatrix for Local Brands | Restaurant & Local Business Marketing Philippines',
     description: 'Turn store photos, menus, offers and customer scenes into TikTok, Facebook, Instagram, Google Maps and WhatsApp content matrices that drive visits, inquiries, redemptions and repeat purchases.',

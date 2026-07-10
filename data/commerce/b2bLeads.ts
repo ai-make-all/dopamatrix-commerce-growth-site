@@ -1,9 +1,16 @@
 import type { CommercePageConfig } from '~/types/commerce'
+import { commerceMarkets, defaultCommerceLocale } from './markets'
 
 export const b2bLeadsConfig: CommercePageConfig = {
   pageType: 'b2b_leads',
   eventPrefix: 'b2b',
   slug: '/use-cases/b2b-leads',
+  locale: {
+    ...defaultCommerceLocale,
+    ...commerceMarkets.southeast_asia,
+    audience: 'b2b_leads',
+    audienceLabel: 'B2B Leads'
+  },
   seo: {
     title: 'DopaMatrix for B2B Leads | Industrial Product & Manufacturer Lead Generation',
     description: 'Turn product specs, factory proof, certifications and customer cases into B2B content matrices that drive RFQs, WhatsApp inquiries, catalog downloads and qualified sales leads.',

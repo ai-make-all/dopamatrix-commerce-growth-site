@@ -7,6 +7,26 @@ export type CommercePageType =
 
 export type CommerceEventPrefix = 'home' | 'commerce' | 'local' | 'ecom' | 'b2b'
 
+export type CommerceMarket = 'philippines' | 'southeast_asia'
+
+export type CommerceLanguage = 'zh' | 'en'
+
+export type CommerceAudience =
+  | 'home'
+  | 'commerce_growth'
+  | 'local_brands'
+  | 'ecommerce_products'
+  | 'b2b_leads'
+
+export interface CommerceLocaleContext {
+  market: CommerceMarket
+  regionLabel: string
+  language: CommerceLanguage
+  languageLabel: string
+  audience: CommerceAudience
+  audienceLabel: string
+}
+
 export interface CommerceCta {
   label: string
   href: string
@@ -71,6 +91,7 @@ export interface CommercePageConfig {
   pageType: CommercePageType
   eventPrefix: CommerceEventPrefix
   slug: string
+  locale: CommerceLocaleContext
   seo: CommerceSeoConfig
   hero: CommerceHeroConfig
   painPoints: CommerceSectionItem[]

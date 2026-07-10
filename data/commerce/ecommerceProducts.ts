@@ -1,9 +1,16 @@
 import type { CommercePageConfig } from '~/types/commerce'
+import { commerceMarkets, defaultCommerceLocale } from './markets'
 
 export const ecommerceProductsConfig: CommercePageConfig = {
   pageType: 'ecommerce_products',
   eventPrefix: 'ecom',
   slug: '/use-cases/ecommerce-products',
+  locale: {
+    ...defaultCommerceLocale,
+    ...commerceMarkets.southeast_asia,
+    audience: 'ecommerce_products',
+    audienceLabel: 'E-commerce Products'
+  },
   seo: {
     title: 'DopaMatrix for E-commerce Products | TikTok Shop & PDP Creative Matrix',
     description: 'Compile SKU selling points, UGC, reviews, offers and PDP paths into product ad creatives, influencer scripts and content matrices for TikTok Shop, Shopee, Lazada and independent sites.',
