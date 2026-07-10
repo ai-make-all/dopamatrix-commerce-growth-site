@@ -1,6 +1,7 @@
-﻿package.json
+package.json
 nuxt.config.ts
 types/commerce.ts
+data/commerce/markets.ts
 data/commerce/localBrands.ts
 data/commerce/ecommerceProducts.ts
 data/commerce/b2bLeads.ts
