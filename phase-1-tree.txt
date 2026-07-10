@@ -1,0 +1,58 @@
+﻿
+===== pages =====
+卷 文档 的文件夹 PATH 列表
+卷序列号为 000001C9 717E:9517
+E:\DOPAMATRIXSITE\DOPAMATRIX-COMMERCE-GROWTH-SITE\PAGES
+|   index.vue
+|   
+\---use-cases
+        b2b-leads.vue
+        commerce-growth.vue
+        ecommerce-products.vue
+        local-brands.vue
+        
+
+===== components =====
+目录不存在：components
+
+===== data =====
+卷 文档 的文件夹 PATH 列表
+卷序列号为 000001D8 717E:9517
+E:\DOPAMATRIXSITE\DOPAMATRIX-COMMERCE-GROWTH-SITE\DATA
+\---commerce
+        b2bLeads.ts
+        commerceGrowth.ts
+        ecommerceProducts.ts
+        home.ts
+        index.ts
+        localBrands.ts
+        
+
+===== types =====
+卷 文档 的文件夹 PATH 列表
+卷序列号为 00000247 717E:9517
+E:\DOPAMATRIXSITE\DOPAMATRIX-COMMERCE-GROWTH-SITE\TYPES
+    commerce.ts
+    
+没有子文件夹 
+
+
+===== composables =====
+目录不存在：composables
+
+===== plugins =====
+目录不存在：plugins
+
+===== public =====
+卷 文档 的文件夹 PATH 列表
+卷序列号为 0000018F 717E:9517
+E:\DOPAMATRIXSITE\DOPAMATRIX-COMMERCE-GROWTH-SITE\PUBLIC
+|   robots.txt
+|   sitemap.xml
+|   
+\---og
+        b2b-leads.png
+        commerce-growth.png
+        ecommerce-products.png
+        local-brands.png
+        
