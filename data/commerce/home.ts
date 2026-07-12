@@ -8,8 +8,8 @@ export const homeConfig: CommercePageConfig = {
   locale: {
     ...defaultCommerceLocale,
     ...commerceMarkets.southeast_asia,
-    audience: 'home',
-    audienceLabel: 'General Commerce'
+    audiences: ['chinese_founder', 'overseas_marketing_team'],
+    audienceLabel: 'Chinese founders + overseas marketing teams'
   },
   seo: {
     title: 'DopaMatrix Commerce Growth Suite',

@@ -8,8 +8,8 @@ export const localBrandsConfig: CommercePageConfig = {
   locale: {
     ...defaultCommerceLocale,
     ...commerceMarkets.philippines,
-    audience: 'local_brands',
-    audienceLabel: 'Local Brands'
+    audiences: ['chinese_founder', 'overseas_marketing_team', 'local_operator'],
+    audienceLabel: 'Chinese founders + local operators'
   },
   seo: {
     title: 'DopaMatrix for Local Brands | Restaurant & Local Business Marketing Philippines',

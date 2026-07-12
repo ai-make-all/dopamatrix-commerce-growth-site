@@ -8,8 +8,8 @@ export const ecommerceProductsConfig: CommercePageConfig = {
   locale: {
     ...defaultCommerceLocale,
     ...commerceMarkets.southeast_asia,
-    audience: 'ecommerce_products',
-    audienceLabel: 'E-commerce Products'
+    audiences: ['chinese_founder', 'overseas_marketing_team', 'local_operator'],
+    audienceLabel: 'Commerce founders + overseas operators'
   },
   seo: {
     title: 'DopaMatrix for E-commerce Products | TikTok Shop & PDP Creative Matrix',

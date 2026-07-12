@@ -12,18 +12,19 @@ export type CommerceMarket = 'philippines' | 'southeast_asia'
 export type CommerceLanguage = 'zh' | 'en'
 
 export type CommerceAudience =
-  | 'home'
-  | 'commerce_growth'
-  | 'local_brands'
-  | 'ecommerce_products'
-  | 'b2b_leads'
+  | 'chinese_founder'
+  | 'overseas_marketing_team'
+  | 'local_operator'
+  | 'regional_buyer'
+  | 'b2b_procurement'
+  | 'channel_partner'
 
 export interface CommerceLocaleContext {
   market: CommerceMarket
   regionLabel: string
   language: CommerceLanguage
   languageLabel: string
-  audience: CommerceAudience
+  audiences: CommerceAudience[]
   audienceLabel: string
 }
 

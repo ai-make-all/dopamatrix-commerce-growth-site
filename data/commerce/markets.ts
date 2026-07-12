@@ -17,6 +17,6 @@ export const defaultCommerceLocale: CommerceLocaleContext = {
   ...commerceMarkets.southeast_asia,
   language: 'zh',
   languageLabel: 'Chinese + English',
-  audience: 'home',
-  audienceLabel: 'General Commerce'
+  audiences: ['chinese_founder', 'overseas_marketing_team'],
+  audienceLabel: 'Chinese founders + overseas marketing teams'
 }

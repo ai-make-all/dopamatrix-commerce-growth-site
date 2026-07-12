@@ -8,8 +8,8 @@ export const b2bLeadsConfig: CommercePageConfig = {
   locale: {
     ...defaultCommerceLocale,
     ...commerceMarkets.southeast_asia,
-    audience: 'b2b_leads',
-    audienceLabel: 'B2B Leads'
+    audiences: ['chinese_founder', 'regional_buyer', 'b2b_procurement', 'channel_partner'],
+    audienceLabel: 'Manufacturers + procurement buyers + channel partners'
   },
   seo: {
     title: 'DopaMatrix for B2B Leads | Industrial Product & Manufacturer Lead Generation',
