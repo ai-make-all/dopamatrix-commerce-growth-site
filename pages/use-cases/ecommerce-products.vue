@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import CommerceDemoPreview from '~/components/commerce/shared/CommerceDemoPreview.vue'
 import CommerceHero from '~/components/commerce/shared/CommerceHero.vue'
 import CommerceSectionGrid from '~/components/commerce/shared/CommerceSectionGrid.vue'
 import { ecommerceProductsConfig as page } from '~/data/commerce'
@@ -27,31 +28,24 @@ const sectionGroups = [
   { id: 'attribution', title: 'PDP、加购、下单归因', items: page.attribution },
   { id: 'assets', title: 'SKU 资产入库', items: page.assets }
 ]
+
+const demoGroups = page.demo?.steps.map((step) => ({
+  title: step.title,
+  options: step.options.map((option) => option.label)
+})) || []
 </script>
 
 <template>
   <main class="min-h-screen bg-dopa-bg text-dopa-text">
     <CommerceHero :hero="page.hero" :locale="page.locale" />
 
-    <section v-if="page.demo" id="demo" class="mx-auto max-w-6xl px-6 py-10 sm:px-10">
-      <div class="rounded-lg border border-dopa-border bg-dopa-panel p-6 shadow-glow">
-        <h2 class="text-2xl font-semibold">{{ page.demo.title }}</h2>
-        <p class="mt-3 max-w-3xl text-sm leading-6 text-dopa-muted">{{ page.demo.description }}</p>
-        <div class="mt-6 grid gap-4 lg:grid-cols-3">
-          <article v-for="step in page.demo.steps" :key="step.key" class="rounded-lg border border-dopa-border bg-dopa-card p-4">
-            <h3 class="font-semibold text-dopa-text">{{ step.title }}</h3>
-            <div class="mt-3 flex flex-wrap gap-2">
-              <span v-for="option in step.options" :key="option.value" class="rounded-full bg-dopa-bg px-3 py-1 text-xs text-dopa-muted">{{ option.label }}</span>
-            </div>
-          </article>
-        </div>
-        <div class="mt-6 flex flex-wrap gap-2">
-          <span v-for="label in page.demo.resultLabels" :key="label" class="rounded-md border border-dopa-amber/40 px-3 py-2 text-xs text-dopa-text">
-            {{ label }}
-          </span>
-        </div>
-      </div>
-    </section>
+    <CommerceDemoPreview
+      v-if="page.demo"
+      :title="page.demo.title"
+      :description="page.demo.description"
+      :groups="demoGroups"
+      :outputs="page.demo.resultLabels"
+    />
 
     <CommerceSectionGrid v-for="group in sectionGroups" :key="group.id" :title="group.title" :items="group.items" />
 
