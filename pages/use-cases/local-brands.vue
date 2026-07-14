@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import CommerceHero from '~/components/commerce/shared/CommerceHero.vue'
+import CommerceSectionGrid from '~/components/commerce/shared/CommerceSectionGrid.vue'
 import { localBrandsConfig as page } from '~/data/commerce'
 
 const runtimeConfig = useRuntimeConfig()
@@ -26,62 +28,11 @@ const sectionGroups = [
   { id: 'assets', title: '门店资产入库', items: page.assets },
   { id: 'work-modes', title: '工作模式', items: page.workModes || [] }
 ].filter((group) => group.items.length)
-
-const ctaClass = (variant = 'primary') => {
-  if (variant === 'secondary') {
-    return 'border border-dopa-green/50 bg-dopa-green/10 text-dopa-text hover:bg-dopa-green/20'
-  }
-
-  if (variant === 'ghost') {
-    return 'border border-dopa-border bg-transparent text-dopa-muted hover:border-dopa-green/60 hover:text-dopa-text'
-  }
-
-  return 'bg-dopa-green text-dopa-bg hover:bg-white'
-}
 </script>
 
 <template>
   <main class="min-h-screen bg-dopa-bg text-dopa-text">
-    <section class="mx-auto max-w-6xl px-6 py-20 sm:px-10">
-      <p class="text-sm font-semibold uppercase tracking-[0.24em] text-dopa-green">
-        {{ page.hero.eyebrow }}
-      </p>
-      <h1 class="mt-5 max-w-5xl text-4xl font-semibold leading-tight sm:text-6xl">
-        {{ page.hero.title }}
-      </h1>
-      <p class="mt-6 max-w-3xl text-lg leading-8 text-dopa-muted">
-        {{ page.hero.subtitle }}
-      </p>
-
-      <div class="mt-8 flex flex-wrap gap-3">
-        <a
-          :href="page.hero.primaryCta.href"
-          :class="ctaClass(page.hero.primaryCta.variant)"
-          class="rounded-md px-5 py-3 text-sm font-semibold transition"
-        >
-          {{ page.hero.primaryCta.label }}
-        </a>
-        <a
-          v-for="cta in page.hero.secondaryCtas"
-          :key="cta.label"
-          :href="cta.href"
-          :class="ctaClass(cta.variant)"
-          class="rounded-md px-5 py-3 text-sm font-semibold transition"
-        >
-          {{ cta.label }}
-        </a>
-      </div>
-
-      <div class="mt-10 flex flex-wrap gap-2">
-        <span
-          v-for="badge in page.hero.badges"
-          :key="badge"
-          class="rounded-full border border-dopa-border bg-dopa-panel px-3 py-1 text-sm text-dopa-muted"
-        >
-          {{ badge }}
-        </span>
-      </div>
-    </section>
+    <CommerceHero :hero="page.hero" :locale="page.locale" />
 
     <section v-if="page.demo" id="demo" class="mx-auto max-w-6xl px-6 py-10 sm:px-10">
       <div class="rounded-lg border border-dopa-border bg-dopa-panel p-6 shadow-glow">
@@ -105,15 +56,7 @@ const ctaClass = (variant = 'primary') => {
       </div>
     </section>
 
-    <section v-for="group in sectionGroups" :id="group.id" :key="group.id" class="mx-auto max-w-6xl px-6 py-10 sm:px-10">
-      <h2 class="text-2xl font-semibold text-dopa-text">{{ group.title }}</h2>
-      <div class="mt-5 grid gap-4 md:grid-cols-3">
-        <article v-for="item in group.items" :key="item.title" class="rounded-lg border border-dopa-border bg-dopa-card p-5">
-          <h3 class="text-lg font-semibold text-dopa-text">{{ item.title }}</h3>
-          <p class="mt-3 text-sm leading-6 text-dopa-muted">{{ item.description }}</p>
-        </article>
-      </div>
-    </section>
+    <CommerceSectionGrid v-for="group in sectionGroups" :key="group.id" :title="group.title" :items="group.items" />
 
     <section id="lead" class="mx-auto max-w-6xl px-6 py-16 sm:px-10">
       <div class="rounded-lg border border-dopa-border bg-dopa-panel p-6">

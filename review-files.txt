@@ -15,3 +15,7 @@ pages/use-cases/ecommerce-products.vue
 pages/use-cases/b2b-leads.vue
 public/robots.txt
 public/sitemap.xml
+components/commerce/shared/CommerceHero.vue
+components/commerce/shared/CommerceSectionGrid.vue
+components/commerce/shared/CommerceFAQ.vue
+components/commerce/shared/MetricPill.vue
