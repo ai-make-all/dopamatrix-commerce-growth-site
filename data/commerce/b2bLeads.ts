@@ -122,3 +122,12 @@ export const b2bLeadsConfig: CommercePageConfig = {
     { name: 'B2B Leads', path: '/use-cases/b2b-leads' }
   ]
 }
+
+export const b2bLeadsSectionGroups = [
+  { id: 'pain', title: 'B2B 获客痛点', items: b2bLeadsConfig.painPoints },
+  { id: 'solution', title: 'B2B Leads 解决方案', items: b2bLeadsConfig.solution },
+  { id: 'outcomes', title: 'B2B 线索成果物', items: b2bLeadsConfig.outcomes },
+  { id: 'matrix', title: '产品线索内容矩阵', items: b2bLeadsConfig.matrix },
+  { id: 'attribution', title: 'RFQ / WhatsApp / Catalog 归因', items: b2bLeadsConfig.attribution },
+  { id: 'assets', title: 'B2B 资产入库', items: b2bLeadsConfig.assets }
+]

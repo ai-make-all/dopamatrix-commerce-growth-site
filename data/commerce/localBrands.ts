@@ -126,3 +126,13 @@ export const localBrandsConfig: CommercePageConfig = {
     { name: 'Local Brands', path: '/use-cases/local-brands' }
   ]
 }
+
+export const localBrandsSectionGroups = [
+  { id: 'pain', title: '门店客流痛点', items: localBrandsConfig.painPoints },
+  { id: 'solution', title: 'Local Brands 解决方案', items: localBrandsConfig.solution },
+  { id: 'outcomes', title: '本地获客成果物', items: localBrandsConfig.outcomes },
+  { id: 'matrix', title: '本地内容矩阵', items: localBrandsConfig.matrix },
+  { id: 'attribution', title: '咨询、导航、核销、复购', items: localBrandsConfig.attribution },
+  { id: 'assets', title: '门店资产入库', items: localBrandsConfig.assets },
+  { id: 'work-modes', title: '工作模式', items: localBrandsConfig.workModes || [] }
+].filter((group) => group.items.length)

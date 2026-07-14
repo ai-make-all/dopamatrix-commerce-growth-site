@@ -78,3 +78,21 @@ export const commerceGrowthConfig: CommercePageConfig = {
     { name: 'Commerce Growth', path: '/use-cases/commerce-growth' }
   ]
 }
+
+export const commerceGrowthSectionGroups = [
+  { id: 'pain', title: '转化终点先分清', items: commerceGrowthConfig.painPoints },
+  { id: 'workflow', title: '统一工作流', items: commerceGrowthConfig.solution },
+  {
+    id: 'routes',
+    title: '三类增长场景',
+    items: commerceGrowthConfig.outcomes,
+    links: {
+      'Local Brands': '/use-cases/local-brands',
+      'E-commerce Products': '/use-cases/ecommerce-products',
+      'B2B Leads': '/use-cases/b2b-leads'
+    }
+  },
+  { id: 'matrix', title: '内容矩阵差异', items: commerceGrowthConfig.matrix },
+  { id: 'attribution', title: '归因口径差异', items: commerceGrowthConfig.attribution },
+  { id: 'assets', title: '业务资产入库', items: commerceGrowthConfig.assets }
+].filter((group) => group.items.length)

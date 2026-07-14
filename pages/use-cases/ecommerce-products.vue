@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import CommerceDemoPreview from '~/components/commerce/shared/CommerceDemoPreview.vue'
 import CommerceHero from '~/components/commerce/shared/CommerceHero.vue'
-import CommerceSectionGrid from '~/components/commerce/shared/CommerceSectionGrid.vue'
-import { ecommerceProductsConfig as page } from '~/data/commerce'
+import CommerceSectionRenderer from '~/components/commerce/shared/CommerceSectionRenderer.vue'
+import { ecommerceProductsConfig as page, ecommerceProductsSectionGroups } from '~/data/commerce'
 
 const runtimeConfig = useRuntimeConfig()
 const siteUrl = String(runtimeConfig.public.siteUrl).replace(/\/$/, '')
@@ -20,14 +20,7 @@ useHead({
   link: [{ rel: 'canonical', href: `${siteUrl}${page.seo.canonicalPath}` }]
 })
 
-const sectionGroups = [
-  { id: 'pain', title: '电商商品增长痛点', items: page.painPoints },
-  { id: 'solution', title: 'E-commerce Products 解决方案', items: page.solution },
-  { id: 'outcomes', title: '商品增长成果物', items: page.outcomes },
-  { id: 'matrix', title: '商品内容矩阵', items: page.matrix },
-  { id: 'attribution', title: 'PDP、加购、下单归因', items: page.attribution },
-  { id: 'assets', title: 'SKU 资产入库', items: page.assets }
-]
+const sectionGroups = ecommerceProductsSectionGroups
 
 const demoGroups = page.demo?.steps.map((step) => ({
   title: step.title,
@@ -47,7 +40,14 @@ const demoGroups = page.demo?.steps.map((step) => ({
       :outputs="page.demo.resultLabels"
     />
 
-    <CommerceSectionGrid v-for="group in sectionGroups" :key="group.id" :title="group.title" :items="group.items" />
+    <CommerceSectionRenderer
+      v-for="group in sectionGroups"
+      :key="group.id"
+      :title="group.title"
+      :description="group.description"
+      :items="group.items"
+      :links="group.links"
+    />
 
     <section id="lead" class="mx-auto max-w-6xl px-6 py-16 sm:px-10">
       <div class="rounded-lg border border-dopa-border bg-dopa-panel p-6">

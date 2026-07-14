@@ -123,3 +123,12 @@ export const ecommerceProductsConfig: CommercePageConfig = {
     { name: 'E-commerce Products', path: '/use-cases/ecommerce-products' }
   ]
 }
+
+export const ecommerceProductsSectionGroups = [
+  { id: 'pain', title: '电商商品增长痛点', items: ecommerceProductsConfig.painPoints },
+  { id: 'solution', title: 'E-commerce Products 解决方案', items: ecommerceProductsConfig.solution },
+  { id: 'outcomes', title: '商品增长成果物', items: ecommerceProductsConfig.outcomes },
+  { id: 'matrix', title: '商品内容矩阵', items: ecommerceProductsConfig.matrix },
+  { id: 'attribution', title: 'PDP、加购、下单归因', items: ecommerceProductsConfig.attribution },
+  { id: 'assets', title: 'SKU 资产入库', items: ecommerceProductsConfig.assets }
+]
