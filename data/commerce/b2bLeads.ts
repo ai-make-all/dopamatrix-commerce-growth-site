@@ -107,6 +107,35 @@ export const b2bLeadsConfig: CommercePageConfig = {
       'Lead Qualification Plan'
     ]
   },
+  lead: {
+    title: '获取 B2B 线索增长方案',
+    description: '告诉我们你的行业、产品类型和目标市场，我们会根据规格、工厂实力、案例、RFQ 和销售跟进路径，整理一版 B2B Lead Growth 建议。',
+    submitLabel: '提交 B2B 线索增长需求',
+    helperText: '当前版本只做前端线索收集 UI，占位不提交真实数据。',
+    fields: [
+      {
+        key: 'industry',
+        label: '行业类型',
+        placeholder: '例如：汽配、电梯、工业设备、建材、机械',
+        type: 'text',
+        required: true
+      },
+      {
+        key: 'targetMarket',
+        label: '目标市场',
+        placeholder: '例如：Southeast Asia / Middle East / Global B2B',
+        type: 'text',
+        required: true
+      },
+      {
+        key: 'leadGoal',
+        label: '线索目标',
+        placeholder: '例如：获取 RFQ、Catalog 下载、代理商咨询、样品请求',
+        type: 'textarea',
+        required: true
+      }
+    ]
+  },
   outcomes: [
     { title: 'Product Proof Map', description: '把规格、认证、案例和工厂实力组织成信任证据。' },
     { title: 'RFQ / WhatsApp Funnel', description: '从内容浏览到咨询、报价、样品和销售跟进。' },

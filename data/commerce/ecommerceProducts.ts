@@ -108,6 +108,35 @@ export const ecommerceProductsConfig: CommercePageConfig = {
       'UGC / Influencer Script Pack'
     ]
   },
+  lead: {
+    title: '获取商品增长方案',
+    description: '告诉我们你的品类、销售渠道和转化目标，我们会根据 SKU、PDP、加购、下单和 ROAS 路径，整理一版 Product Growth 建议。',
+    submitLabel: '提交商品增长需求',
+    helperText: '当前版本只做前端线索收集 UI，占位不提交真实数据。',
+    fields: [
+      {
+        key: 'category',
+        label: '商品品类',
+        placeholder: '例如：美妆、服饰、食品、小家电',
+        type: 'text',
+        required: true
+      },
+      {
+        key: 'channel',
+        label: '主要渠道',
+        placeholder: '例如：TikTok Shop / Shopee / Lazada / 独立站',
+        type: 'text',
+        required: true
+      },
+      {
+        key: 'goal',
+        label: '转化目标',
+        placeholder: '例如：提高 PDP 点击、加购、购买转化、清库存',
+        type: 'textarea',
+        required: true
+      }
+    ]
+  },
   outcomes: [
     { title: 'SKU Selling Point Map', description: '把功能、场景、评价和优惠拆成可测试卖点。' },
     { title: 'PDP Funnel Plan', description: '从内容点击到商品页、加购、订单和优惠码使用。' },

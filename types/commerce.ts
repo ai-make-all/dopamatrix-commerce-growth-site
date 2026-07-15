@@ -85,6 +85,23 @@ export interface CommerceDemoContext {
   highlightedOutputs: string[]
 }
 
+export interface CommerceLeadField {
+  key: string
+  label: string
+  placeholder: string
+  type: 'text' | 'email' | 'tel' | 'textarea' | 'select'
+  required?: boolean
+  options?: string[]
+}
+
+export interface CommerceLeadConfig {
+  title: string
+  description: string
+  submitLabel: string
+  helperText: string
+  fields: CommerceLeadField[]
+}
+
 export interface CommerceFaqItem {
   question: string
   answer: string
@@ -111,6 +128,7 @@ export interface CommercePageConfig {
   workModes?: CommerceSectionItem[]
   demo?: CommerceDemoConfig
   demoContext?: CommerceDemoContext
+  lead?: CommerceLeadConfig
   faq: CommerceFaqItem[]
   breadcrumbs: CommerceBreadcrumbItem[]
 }

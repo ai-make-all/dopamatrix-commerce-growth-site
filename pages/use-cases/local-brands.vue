@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import CommerceDemoPreview from '~/components/commerce/shared/CommerceDemoPreview.vue'
 import CommerceHero from '~/components/commerce/shared/CommerceHero.vue'
+import CommerceLeadCapture from '~/components/commerce/shared/CommerceLeadCapture.vue'
 import CommerceSectionRenderer from '~/components/commerce/shared/CommerceSectionRenderer.vue'
 import { localBrandsConfig as page, localBrandsSectionGroups } from '~/data/commerce'
 
@@ -27,11 +28,6 @@ const sectionGroups = localBrandsSectionGroups
       :links="group.links"
     />
 
-    <section id="lead" class="mx-auto max-w-6xl px-6 py-16 sm:px-10">
-      <div class="rounded-lg border border-dopa-border bg-dopa-panel p-6">
-        <h2 class="text-2xl font-semibold">线索收集 CTA</h2>
-        <p class="mt-3 text-sm leading-6 text-dopa-muted">第一阶段只预留 CTA 区域，不接真实 Lead Form 提交。</p>
-      </div>
-    </section>
+    <CommerceLeadCapture v-if="page.lead" :lead="page.lead" />
   </main>
 </template>

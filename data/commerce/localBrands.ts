@@ -106,6 +106,35 @@ export const localBrandsConfig: CommercePageConfig = {
       '线索追踪建议'
     ]
   },
+  lead: {
+    title: '获取门店增长方案',
+    description: '告诉我们你的门店类型、目标市场和增长目标，我们会根据到店、咨询、核销和复购路径，整理一版 Local Growth 建议。',
+    submitLabel: '提交门店增长需求',
+    helperText: '当前版本只做前端线索收集 UI，占位不提交真实数据。',
+    fields: [
+      {
+        key: 'businessType',
+        label: '门店类型',
+        placeholder: '例如：餐饮、茶饮、零售、美业',
+        type: 'text',
+        required: true
+      },
+      {
+        key: 'market',
+        label: '目标市场',
+        placeholder: '例如：Philippines / Malaysia / Southeast Asia',
+        type: 'text',
+        required: true
+      },
+      {
+        key: 'goal',
+        label: '增长目标',
+        placeholder: '例如：提高到店、获取 WhatsApp 咨询、活动核销',
+        type: 'textarea',
+        required: true
+      }
+    ]
+  },
   outcomes: [
     { title: 'Local Growth Card', description: '把门店、优惠和客群目标压缩成一张可执行增长卡。' },
     { title: '活动转化路径', description: '从短视频曝光到 WhatsApp 咨询、导航、领券和核销。' },
