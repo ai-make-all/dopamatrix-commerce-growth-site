@@ -91,6 +91,21 @@ export const localBrandsConfig: CommercePageConfig = {
     ],
     resultLabels: ['Local Growth Card', '门店卖点提炼', '内容矩阵计划', '活动转化路径', '线索追踪建议']
   },
+  demoContext: {
+    title: 'Default: Philippines Local Growth',
+    description: '基于菲律宾本地门店、华人老板和本地运营团队，默认突出到店、WhatsApp 咨询、本地活动和社群转化。',
+    selectedOptions: {
+      industry: ['restaurant', 'retail', 'beauty_service'],
+      goal: ['store_visit', 'new_product', 'whatsapp_inquiry'],
+      market: ['philippines', 'taglish', 'chinese_community']
+    },
+    highlightedOutputs: [
+      'Local Growth Card',
+      '门店卖点提炼',
+      '活动转化路径',
+      '线索追踪建议'
+    ]
+  },
   outcomes: [
     { title: 'Local Growth Card', description: '把门店、优惠和客群目标压缩成一张可执行增长卡。' },
     { title: '活动转化路径', description: '从短视频曝光到 WhatsApp 咨询、导航、领券和核销。' },

@@ -22,3 +22,4 @@ components/commerce/shared/MetricPill.vue
 components/commerce/shared/CommerceDemoPreview.vue
 components/commerce/shared/CommerceSectionRenderer.vue
 composables/useCommerceSeo.ts
+components/commerce/shared/CommerceLocaleBadge.vue

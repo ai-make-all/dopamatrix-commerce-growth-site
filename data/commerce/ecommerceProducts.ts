@@ -9,7 +9,7 @@ export const ecommerceProductsConfig: CommercePageConfig = {
     ...defaultCommerceLocale,
     ...commerceMarkets.southeast_asia,
     audiences: ['chinese_founder', 'overseas_marketing_team', 'local_operator'],
-    audienceLabel: 'Commerce founders + overseas operators'
+    audienceLabel: 'Commerce brands + overseas operators'
   },
   seo: {
     title: 'DopaMatrix for E-commerce Products | TikTok Shop & PDP Creative Matrix',
@@ -92,6 +92,21 @@ export const ecommerceProductsConfig: CommercePageConfig = {
       }
     ],
     resultLabels: ['Product Growth Card', 'SKU Selling Point Map', 'Creative Matrix Plan', 'PDP Funnel Plan', 'Commerce Attribution Plan', 'UGC / Influencer Script Pack']
+  },
+  demoContext: {
+    title: 'Default: Southeast Asia Product Growth',
+    description: '基于东南亚电商增长场景，默认突出 TikTok Shop、Shopee、PDP 点击、加购和购买转化。',
+    selectedOptions: {
+      category: ['beauty', 'fashion', 'food'],
+      goal: ['pdp_click', 'add_to_cart', 'purchase_conversion'],
+      channel: ['tiktok_shop', 'shopee', 'lazada']
+    },
+    highlightedOutputs: [
+      'SKU Selling Point Map',
+      'Creative Matrix Plan',
+      'PDP Funnel Plan',
+      'UGC / Influencer Script Pack'
+    ]
   },
   outcomes: [
     { title: 'SKU Selling Point Map', description: '把功能、场景、评价和优惠拆成可测试卖点。' },

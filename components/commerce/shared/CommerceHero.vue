@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { CommerceHeroConfig, CommerceLocaleContext } from '~/types/commerce'
+import CommerceLocaleBadge from './CommerceLocaleBadge.vue'
 import MetricPill from './MetricPill.vue'
 
 const props = defineProps<{
@@ -116,5 +117,7 @@ const isRouteLink = (href: string) => href.startsWith('/')
     <div v-if="hero.badges.length" class="mt-10 flex flex-wrap gap-2">
       <MetricPill v-for="badge in hero.badges" :key="badge" :label="badge" />
     </div>
+
+    <CommerceLocaleBadge v-if="locale" :locale="locale" class="mt-5" />
   </section>
 </template>

@@ -78,6 +78,13 @@ export interface CommerceDemoConfig {
   resultLabels: string[]
 }
 
+export interface CommerceDemoContext {
+  title: string
+  description: string
+  selectedOptions: Record<string, string[]>
+  highlightedOutputs: string[]
+}
+
 export interface CommerceFaqItem {
   question: string
   answer: string
@@ -103,6 +110,7 @@ export interface CommercePageConfig {
   assets: CommerceSectionItem[]
   workModes?: CommerceSectionItem[]
   demo?: CommerceDemoConfig
+  demoContext?: CommerceDemoContext
   faq: CommerceFaqItem[]
   breadcrumbs: CommerceBreadcrumbItem[]
 }

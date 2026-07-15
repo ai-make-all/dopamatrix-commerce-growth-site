@@ -6,11 +6,6 @@ import { ecommerceProductsConfig as page, ecommerceProductsSectionGroups } from 
 
 useCommerceSeo(page.seo)
 const sectionGroups = ecommerceProductsSectionGroups
-
-const demoGroups = page.demo?.steps.map((step) => ({
-  title: step.title,
-  options: step.options.map((option) => option.label)
-})) || []
 </script>
 
 <template>
@@ -19,10 +14,8 @@ const demoGroups = page.demo?.steps.map((step) => ({
 
     <CommerceDemoPreview
       v-if="page.demo"
-      :title="page.demo.title"
-      :description="page.demo.description"
-      :groups="demoGroups"
-      :outputs="page.demo.resultLabels"
+      :demo="page.demo"
+      :demo-context="page.demoContext"
     />
 
     <CommerceSectionRenderer

@@ -9,7 +9,7 @@ export const homeConfig: CommercePageConfig = {
     ...defaultCommerceLocale,
     ...commerceMarkets.southeast_asia,
     audiences: ['chinese_founder', 'overseas_marketing_team'],
-    audienceLabel: 'Chinese founders + overseas marketing teams'
+    audienceLabel: 'Chinese Brands Going Global'
   },
   seo: {
     title: 'DopaMatrix Commerce Growth Suite',

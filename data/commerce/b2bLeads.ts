@@ -9,7 +9,7 @@ export const b2bLeadsConfig: CommercePageConfig = {
     ...defaultCommerceLocale,
     ...commerceMarkets.southeast_asia,
     audiences: ['chinese_founder', 'regional_buyer', 'b2b_procurement', 'channel_partner'],
-    audienceLabel: 'Manufacturers + procurement buyers + channel partners'
+    audienceLabel: 'Manufacturers + procurement teams'
   },
   seo: {
     title: 'DopaMatrix for B2B Leads | Industrial Product & Manufacturer Lead Generation',
@@ -91,6 +91,21 @@ export const b2bLeadsConfig: CommercePageConfig = {
       }
     ],
     resultLabels: ['B2B Growth Card', 'Product Proof Map', 'Lead Content Matrix', 'RFQ Funnel Plan', 'Sales Follow-up Plan', 'Lead Qualification Plan']
+  },
+  demoContext: {
+    title: 'Default: Southeast Asia B2B Lead Growth',
+    description: '基于东南亚和全球 B2B 线索增长场景，默认突出工厂实力、产品规格、RFQ、Catalog 下载和销售跟进。',
+    selectedOptions: {
+      industry: ['auto_parts', 'elevator', 'industrial_equipment', 'building_materials'],
+      goal: ['quote_request', 'whatsapp_inquiry', 'catalog_download', 'dealer_recruitment'],
+      market: ['southeast_asia', 'middle_east', 'global_b2b']
+    },
+    highlightedOutputs: [
+      'Product Proof Map',
+      'RFQ Funnel Plan',
+      'Sales Follow-up Plan',
+      'Lead Qualification Plan'
+    ]
   },
   outcomes: [
     { title: 'Product Proof Map', description: '把规格、认证、案例和工厂实力组织成信任证据。' },
