@@ -102,6 +102,28 @@ export interface CommerceLeadConfig {
   fields: CommerceLeadField[]
 }
 
+export interface CommerceLeadContext {
+  pageType: CommercePageType
+  eventPrefix: CommerceEventPrefix
+  slug: string
+  locale: CommerceLocaleContext
+  demoContext?: CommerceDemoContext
+}
+
+export interface CommerceLeadPayload {
+  mode: 'mock'
+  submittedAt: string
+  source: 'commerce_lead_capture'
+  page: {
+    pageType: CommercePageType
+    eventPrefix: CommerceEventPrefix
+    slug: string
+  }
+  locale: CommerceLocaleContext
+  demoContext?: CommerceDemoContext
+  fields: Record<string, string>
+}
+
 export interface CommerceFaqItem {
   question: string
   answer: string

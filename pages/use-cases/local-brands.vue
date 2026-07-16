@@ -28,6 +28,16 @@ const sectionGroups = localBrandsSectionGroups
       :links="group.links"
     />
 
-    <CommerceLeadCapture v-if="page.lead" :lead="page.lead" />
+    <CommerceLeadCapture
+      v-if="page.lead"
+      :lead="page.lead"
+      :context="{
+        pageType: page.pageType,
+        eventPrefix: page.eventPrefix,
+        slug: page.slug,
+        locale: page.locale,
+        demoContext: page.demoContext
+      }"
+    />
   </main>
 </template>
