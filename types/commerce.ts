@@ -110,6 +110,16 @@ export interface CommerceLeadContext {
   demoContext?: CommerceDemoContext
 }
 
+export interface CommerceLeadSummary {
+  title: string
+  subtitle: string
+  items: Array<{
+    label: string
+    value: string
+  }>
+  recommendedPath: string
+}
+
 export interface CommerceLeadPayload {
   mode: 'mock'
   submittedAt: string
@@ -121,6 +131,14 @@ export interface CommerceLeadPayload {
   }
   locale: CommerceLocaleContext
   demoContext?: CommerceDemoContext
+  conversionIntent?: {
+    businessGoal: string
+    primaryOutcome: string
+  }
+  sourceContext?: {
+    pageTitle?: string
+    entryPoint?: string
+  }
   fields: Record<string, string>
 }
 
