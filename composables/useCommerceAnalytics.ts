@@ -1,28 +1,28 @@
 import type {
+  CommerceAnalyticsContext,
   CommerceAnalyticsEvent,
-  CommerceAnalyticsPageContext,
-  CommerceAnalyticsPayload,
-  CommerceLocaleContext
+  CommerceAnalyticsPayload
 } from '~/types/commerce'
 
-type CommerceAnalyticsTrackInput = {
-  page: CommerceAnalyticsPageContext
-  locale?: CommerceLocaleContext
-  properties?: Record<string, unknown>
-  timestamp?: string
-}
+const analyticsVersion = '1.0'
 
 export const useCommerceAnalytics = () => {
   const track = (
     event: CommerceAnalyticsEvent,
-    input: CommerceAnalyticsTrackInput
+    context: CommerceAnalyticsContext,
+    properties: Record<string, unknown> = {}
   ): CommerceAnalyticsPayload => {
+    const normalizedContext: CommerceAnalyticsContext = {
+      ...context,
+      audience: context.audience || context.locale?.audiences
+    }
+
     const payload: CommerceAnalyticsPayload = {
       event,
-      page: input.page,
-      locale: input.locale,
-      properties: input.properties || {},
-      timestamp: input.timestamp || new Date().toISOString()
+      timestamp: new Date().toISOString(),
+      analyticsVersion,
+      context: normalizedContext,
+      properties
     }
 
     if (import.meta.client) {

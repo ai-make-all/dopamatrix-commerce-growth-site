@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type {
+  CommerceAnalyticsContext,
   CommerceLeadConfig,
   CommerceLeadContext,
   CommerceLeadField,
@@ -23,10 +24,14 @@ const showPayloadPreview = ref(false)
 const hasTrackedFormStart = ref(false)
 const { track } = useCommerceAnalytics()
 
-const analyticsPage = computed(() => ({
-  pageType: props.context.pageType,
-  eventPrefix: props.context.eventPrefix,
-  slug: props.context.slug
+const analyticsContext = computed<CommerceAnalyticsContext>(() => ({
+  page: {
+    pageType: props.context.pageType,
+    eventPrefix: props.context.eventPrefix,
+    slug: props.context.slug
+  },
+  locale: props.context.locale,
+  audience: props.context.locale.audiences
 }))
 
 const mockPayloadPreview = computed(() => {
@@ -118,13 +123,9 @@ const trackFormStart = () => {
 
   hasTrackedFormStart.value = true
 
-  track('commerce_lead_form_start', {
-    page: analyticsPage.value,
-    locale: props.context.locale,
-    properties: {
-      leadTitle: props.lead.title,
-      fieldKeys: props.lead.fields.map((field) => field.key)
-    }
+  track('commerce_lead_form_start', analyticsContext.value, {
+    leadType: props.context.pageType,
+    fieldCount: props.lead.fields.length
   })
 }
 
@@ -170,22 +171,14 @@ const handleSubmit = () => {
   }
   mockPayload.value = generatedPayload
 
-  track('commerce_lead_mock_submit', {
-    page: analyticsPage.value,
-    locale: props.context.locale,
-    properties: {
-      payload: generatedPayload,
-      fieldKeys: Object.keys(formValues)
-    }
+  track('commerce_lead_mock_submit', analyticsContext.value, {
+    fieldKeys: Object.keys(formValues),
+    payloadVersion: '1.0'
   })
 
-  track('commerce_lead_summary_generated', {
-    page: analyticsPage.value,
-    locale: props.context.locale,
-    properties: {
-      summary: generatedSummary,
-      conversionIntent: generatedPayload.conversionIntent
-    }
+  track('commerce_lead_summary_generated', analyticsContext.value, {
+    conversionIntent: generatedPayload.conversionIntent,
+    summaryType: generatedSummary.title
   })
 }
 

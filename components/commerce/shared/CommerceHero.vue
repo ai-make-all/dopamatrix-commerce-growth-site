@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type {
-  CommerceAnalyticsPageContext,
+  CommerceAnalyticsContext,
   CommerceHeroConfig,
   CommerceLocaleContext
 } from '~/types/commerce'
@@ -10,7 +10,7 @@ import MetricPill from './MetricPill.vue'
 const props = defineProps<{
   hero: CommerceHeroConfig
   locale?: CommerceLocaleContext
-  analyticsContext?: CommerceAnalyticsPageContext
+  analyticsContext?: CommerceAnalyticsContext
 }>()
 
 const { track } = useCommerceAnalytics()
@@ -74,7 +74,7 @@ const routeTargetByHref: Record<string, string> = {
 }
 
 const isRouteLabel = (href: string) => {
-  return props.analyticsContext?.pageType === 'commerce_growth' && href === '#routes'
+  return props.analyticsContext?.page.pageType === 'commerce_growth' && href === '#routes'
 }
 
 const trackCtaClick = (cta: { label: string; href: string; variant?: string }) => {
@@ -85,25 +85,17 @@ const trackCtaClick = (cta: { label: string; href: string; variant?: string }) =
   const targetRoute = routeTargetByHref[cta.href]
 
   if (targetRoute) {
-    track('commerce_route_select', {
-      page: props.analyticsContext,
-      locale: props.locale,
-      properties: {
-        targetRoute
-      }
+    track('commerce_route_select', props.analyticsContext, {
+      routeType: targetRoute,
+      routeSlug: cta.href
     })
     return
   }
 
-  track('commerce_cta_click', {
-    page: props.analyticsContext,
-    locale: props.locale,
-    properties: {
-      ctaLabel: cta.label,
-      ctaHref: cta.href,
-      ctaVariant: cta.variant || 'primary',
-      heroEyebrow: props.hero.eyebrow
-    }
+  track('commerce_cta_click', props.analyticsContext, {
+    ctaLabel: cta.label,
+    href: cta.href,
+    ctaVariant: cta.variant || 'primary'
   })
 }
 </script>

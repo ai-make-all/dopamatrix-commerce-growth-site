@@ -1,16 +1,14 @@
 <script setup lang="ts">
 import type {
-  CommerceAnalyticsPageContext,
+  CommerceAnalyticsContext,
   CommerceDemoConfig,
-  CommerceDemoContext,
-  CommerceLocaleContext
+  CommerceDemoContext
 } from '~/types/commerce'
 
 const props = defineProps<{
   demo: CommerceDemoConfig
   demoContext?: CommerceDemoContext
-  analyticsContext?: CommerceAnalyticsPageContext
-  locale?: CommerceLocaleContext
+  analyticsContext?: CommerceAnalyticsContext
 }>()
 
 const { track } = useCommerceAnalytics()
@@ -76,26 +74,15 @@ onMounted(() => {
     return
   }
 
-  track('commerce_demo_start', {
-    page: props.analyticsContext,
-    locale: props.locale,
-    properties: {
-      demoTitle: props.demo.title,
-      demoEventPrefix: props.demo.eventPrefix,
-      stepKeys: props.demo.steps.map((step) => step.key)
-    }
+  track('commerce_demo_start', props.analyticsContext, {
+    demoType: props.demo.title,
+    eventPrefix: props.demo.eventPrefix
   })
 
   if (props.demoContext) {
-    track('commerce_demo_complete', {
-      page: props.analyticsContext,
-      locale: props.locale,
-      properties: {
-        completionMode: 'default_context_rendered',
-        demoContextTitle: props.demoContext.title,
-        selectedOptions: props.demoContext.selectedOptions,
-        highlightedOutputs: props.demoContext.highlightedOutputs
-      }
+    track('commerce_demo_complete', props.analyticsContext, {
+      demoType: props.demo.title,
+      completionMode: 'default_context_rendered'
     })
   }
 })

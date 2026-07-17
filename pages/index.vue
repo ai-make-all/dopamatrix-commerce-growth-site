@@ -1,14 +1,18 @@
 <script setup lang="ts">
-import type { CommerceAnalyticsPageContext } from '~/types/commerce'
+import type { CommerceAnalyticsContext } from '~/types/commerce'
 import CommerceHero from '~/components/commerce/shared/CommerceHero.vue'
 import { homeConfig as page } from '~/data/commerce'
 
 useCommerceSeo(page.seo)
 
-const analyticsContext: CommerceAnalyticsPageContext = {
-  pageType: page.pageType,
-  eventPrefix: page.eventPrefix,
-  slug: page.slug
+const analyticsContext: CommerceAnalyticsContext = {
+  page: {
+    pageType: page.pageType,
+    eventPrefix: page.eventPrefix,
+    slug: page.slug
+  },
+  locale: page.locale,
+  audience: page.locale.audiences
 }
 const { track } = useCommerceAnalytics()
 
@@ -33,23 +37,16 @@ const routeCards = page.painPoints.map((item) => ({
 }))
 
 const trackRouteSelect = (targetRoute: string) => {
-  track('commerce_route_select', {
-    page: analyticsContext,
-    locale: page.locale,
-    properties: {
-      targetRoute
-    }
+  track('commerce_route_select', analyticsContext, {
+    routeType: targetRoute,
+    routeSlug: routeCards.find((item) => item.targetRoute === targetRoute)?.href || ''
   })
 }
 
 onMounted(() => {
-  track('commerce_page_view', {
-    page: analyticsContext,
-    locale: page.locale,
-    properties: {
-      seoTitle: page.seo.title,
-      canonicalPath: page.seo.canonicalPath
-    }
+  track('commerce_page_view', analyticsContext, {
+    pageTitle: page.seo.title,
+    canonicalPath: page.seo.canonicalPath
   })
 })
 </script>

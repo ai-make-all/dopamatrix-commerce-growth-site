@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { CommerceAnalyticsPageContext } from '~/types/commerce'
+import type { CommerceAnalyticsContext } from '~/types/commerce'
 import CommerceDemoPreview from '~/components/commerce/shared/CommerceDemoPreview.vue'
 import CommerceHero from '~/components/commerce/shared/CommerceHero.vue'
 import CommerceLeadCapture from '~/components/commerce/shared/CommerceLeadCapture.vue'
@@ -8,21 +8,21 @@ import { b2bLeadsConfig as page, b2bLeadsSectionGroups } from '~/data/commerce'
 
 useCommerceSeo(page.seo)
 const sectionGroups = b2bLeadsSectionGroups
-const analyticsContext: CommerceAnalyticsPageContext = {
-  pageType: page.pageType,
-  eventPrefix: page.eventPrefix,
-  slug: page.slug
+const analyticsContext: CommerceAnalyticsContext = {
+  page: {
+    pageType: page.pageType,
+    eventPrefix: page.eventPrefix,
+    slug: page.slug
+  },
+  locale: page.locale,
+  audience: page.locale.audiences
 }
 const { track } = useCommerceAnalytics()
 
 onMounted(() => {
-  track('commerce_page_view', {
-    page: analyticsContext,
-    locale: page.locale,
-    properties: {
-      seoTitle: page.seo.title,
-      canonicalPath: page.seo.canonicalPath
-    }
+  track('commerce_page_view', analyticsContext, {
+    pageTitle: page.seo.title,
+    canonicalPath: page.seo.canonicalPath
   })
 })
 </script>
@@ -40,7 +40,6 @@ onMounted(() => {
       :demo="page.demo"
       :demo-context="page.demoContext"
       :analytics-context="analyticsContext"
-      :locale="page.locale"
     />
 
     <CommerceSectionRenderer
@@ -56,7 +55,7 @@ onMounted(() => {
       v-if="page.lead"
       :lead="page.lead"
       :context="{
-        ...analyticsContext,
+        ...analyticsContext.page,
         locale: page.locale,
         demoContext: page.demoContext
       }"

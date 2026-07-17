@@ -44,12 +44,18 @@ export interface CommerceAnalyticsPageContext {
   slug: string
 }
 
-export interface CommerceAnalyticsPayload {
-  event: CommerceAnalyticsEvent
+export interface CommerceAnalyticsContext {
   page: CommerceAnalyticsPageContext
   locale?: CommerceLocaleContext
-  properties?: Record<string, unknown>
+  audience?: string[]
+}
+
+export interface CommerceAnalyticsPayload {
+  event: CommerceAnalyticsEvent
   timestamp: string
+  analyticsVersion: string
+  context: CommerceAnalyticsContext
+  properties?: Record<string, unknown>
 }
 
 export interface CommerceCta {

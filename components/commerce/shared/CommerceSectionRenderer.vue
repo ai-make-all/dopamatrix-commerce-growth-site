@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import type { CommerceAnalyticsPageContext, CommerceSectionItem } from '~/types/commerce'
+import type { CommerceAnalyticsContext, CommerceSectionItem } from '~/types/commerce'
 
 const props = defineProps<{
   title: string
   items: CommerceSectionItem[]
   description?: string
   links?: Record<string, string>
-  analyticsContext?: CommerceAnalyticsPageContext
+  analyticsContext?: CommerceAnalyticsContext
 }>()
 
 const getItemHref = (item: CommerceSectionItem) => props.links?.[item.title]
@@ -30,11 +30,9 @@ const trackRouteSelect = (href?: string) => {
     return
   }
 
-  track('commerce_route_select', {
-    page: props.analyticsContext,
-    properties: {
-      targetRoute
-    }
+  track('commerce_route_select', props.analyticsContext, {
+    routeType: targetRoute,
+    routeSlug: href
   })
 }
 </script>

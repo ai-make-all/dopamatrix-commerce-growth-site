@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { CommerceAnalyticsPageContext } from '~/types/commerce'
+import type { CommerceAnalyticsContext } from '~/types/commerce'
 import CommerceFAQ from '~/components/commerce/shared/CommerceFAQ.vue'
 import CommerceHero from '~/components/commerce/shared/CommerceHero.vue'
 import CommerceSectionRenderer from '~/components/commerce/shared/CommerceSectionRenderer.vue'
@@ -7,21 +7,21 @@ import { commerceGrowthConfig as page, commerceGrowthSectionGroups } from '~/dat
 
 useCommerceSeo(page.seo)
 const sectionGroups = commerceGrowthSectionGroups
-const analyticsContext: CommerceAnalyticsPageContext = {
-  pageType: page.pageType,
-  eventPrefix: page.eventPrefix,
-  slug: page.slug
+const analyticsContext: CommerceAnalyticsContext = {
+  page: {
+    pageType: page.pageType,
+    eventPrefix: page.eventPrefix,
+    slug: page.slug
+  },
+  locale: page.locale,
+  audience: page.locale.audiences
 }
 const { track } = useCommerceAnalytics()
 
 onMounted(() => {
-  track('commerce_page_view', {
-    page: analyticsContext,
-    locale: page.locale,
-    properties: {
-      seoTitle: page.seo.title,
-      canonicalPath: page.seo.canonicalPath
-    }
+  track('commerce_page_view', analyticsContext, {
+    pageTitle: page.seo.title,
+    canonicalPath: page.seo.canonicalPath
   })
 })
 </script>
