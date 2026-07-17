@@ -23,4 +23,5 @@ components/commerce/shared/CommerceDemoPreview.vue
 components/commerce/shared/CommerceLeadCapture.vue
 components/commerce/shared/CommerceSectionRenderer.vue
 composables/useCommerceSeo.ts
+composables/useCommerceAnalytics.ts
 components/commerce/shared/CommerceLocaleBadge.vue

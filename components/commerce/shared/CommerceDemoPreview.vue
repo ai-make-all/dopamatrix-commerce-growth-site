@@ -1,10 +1,19 @@
 <script setup lang="ts">
-import type { CommerceDemoConfig, CommerceDemoContext } from '~/types/commerce'
+import type {
+  CommerceAnalyticsPageContext,
+  CommerceDemoConfig,
+  CommerceDemoContext,
+  CommerceLocaleContext
+} from '~/types/commerce'
 
 const props = defineProps<{
   demo: CommerceDemoConfig
   demoContext?: CommerceDemoContext
+  analyticsContext?: CommerceAnalyticsPageContext
+  locale?: CommerceLocaleContext
 }>()
+
+const { track } = useCommerceAnalytics()
 
 const accent = computed(() => {
   if (props.demo.eventPrefix === 'local') {
@@ -61,6 +70,35 @@ const outputClass = (label: string) => {
     ? highlightedOutputClass.value
     : 'border-dopa-border text-dopa-muted'
 }
+
+onMounted(() => {
+  if (!props.analyticsContext) {
+    return
+  }
+
+  track('commerce_demo_start', {
+    page: props.analyticsContext,
+    locale: props.locale,
+    properties: {
+      demoTitle: props.demo.title,
+      demoEventPrefix: props.demo.eventPrefix,
+      stepKeys: props.demo.steps.map((step) => step.key)
+    }
+  })
+
+  if (props.demoContext) {
+    track('commerce_demo_complete', {
+      page: props.analyticsContext,
+      locale: props.locale,
+      properties: {
+        completionMode: 'default_context_rendered',
+        demoContextTitle: props.demoContext.title,
+        selectedOptions: props.demoContext.selectedOptions,
+        highlightedOutputs: props.demoContext.highlightedOutputs
+      }
+    })
+  }
+})
 </script>
 
 <template>

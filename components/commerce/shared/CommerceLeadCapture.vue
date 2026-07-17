@@ -20,6 +20,14 @@ const errorMessage = ref('')
 const mockPayload = ref<CommerceLeadPayload | null>(null)
 const leadSummary = ref<CommerceLeadSummary | null>(null)
 const showPayloadPreview = ref(false)
+const hasTrackedFormStart = ref(false)
+const { track } = useCommerceAnalytics()
+
+const analyticsPage = computed(() => ({
+  pageType: props.context.pageType,
+  eventPrefix: props.context.eventPrefix,
+  slug: props.context.slug
+}))
 
 const mockPayloadPreview = computed(() => {
   if (!mockPayload.value) {
@@ -103,6 +111,23 @@ const buildLeadSummary = (): CommerceLeadSummary => {
   }
 }
 
+const trackFormStart = () => {
+  if (hasTrackedFormStart.value) {
+    return
+  }
+
+  hasTrackedFormStart.value = true
+
+  track('commerce_lead_form_start', {
+    page: analyticsPage.value,
+    locale: props.context.locale,
+    properties: {
+      leadTitle: props.lead.title,
+      fieldKeys: props.lead.fields.map((field) => field.key)
+    }
+  })
+}
+
 const handleSubmit = () => {
   const hasMissingRequiredField = props.lead.fields.some((field) => {
     return field.required && !formValues[field.key]?.trim()
@@ -119,9 +144,10 @@ const handleSubmit = () => {
 
   submitStatus.value = 'success'
   errorMessage.value = ''
-  leadSummary.value = buildLeadSummary()
+  const generatedSummary = buildLeadSummary()
+  leadSummary.value = generatedSummary
   showPayloadPreview.value = false
-  mockPayload.value = {
+  const generatedPayload: CommerceLeadPayload = {
     mode: 'mock',
     submittedAt: new Date().toISOString(),
     source: 'commerce_lead_capture',
@@ -142,6 +168,25 @@ const handleSubmit = () => {
     },
     fields: { ...formValues }
   }
+  mockPayload.value = generatedPayload
+
+  track('commerce_lead_mock_submit', {
+    page: analyticsPage.value,
+    locale: props.context.locale,
+    properties: {
+      payload: generatedPayload,
+      fieldKeys: Object.keys(formValues)
+    }
+  })
+
+  track('commerce_lead_summary_generated', {
+    page: analyticsPage.value,
+    locale: props.context.locale,
+    properties: {
+      summary: generatedSummary,
+      conversionIntent: generatedPayload.conversionIntent
+    }
+  })
 }
 
 const resetMockPayload = () => {
@@ -186,6 +231,7 @@ const resetMockPayload = () => {
             :aria-required="field.required"
             rows="4"
             class="min-h-32 rounded-md border border-dopa-border bg-dopa-bg px-3 py-3 text-sm text-dopa-text outline-none transition placeholder:text-dopa-muted focus:border-dopa-cyan/70"
+            @focus="trackFormStart"
           />
 
           <select
@@ -194,6 +240,7 @@ const resetMockPayload = () => {
             :name="field.key"
             :aria-required="field.required"
             class="rounded-md border border-dopa-border bg-dopa-bg px-3 py-3 text-sm text-dopa-text outline-none transition focus:border-dopa-cyan/70"
+            @focus="trackFormStart"
           >
             <option value="" disabled>
               {{ field.placeholder }}
@@ -211,6 +258,7 @@ const resetMockPayload = () => {
             :placeholder="field.placeholder"
             :aria-required="field.required"
             class="rounded-md border border-dopa-border bg-dopa-bg px-3 py-3 text-sm text-dopa-text outline-none transition placeholder:text-dopa-muted focus:border-dopa-cyan/70"
+            @focus="trackFormStart"
           >
         </label>
 

@@ -1,12 +1,19 @@
 <script setup lang="ts">
-import type { CommerceHeroConfig, CommerceLocaleContext } from '~/types/commerce'
+import type {
+  CommerceAnalyticsPageContext,
+  CommerceHeroConfig,
+  CommerceLocaleContext
+} from '~/types/commerce'
 import CommerceLocaleBadge from './CommerceLocaleBadge.vue'
 import MetricPill from './MetricPill.vue'
 
 const props = defineProps<{
   hero: CommerceHeroConfig
   locale?: CommerceLocaleContext
+  analyticsContext?: CommerceAnalyticsPageContext
 }>()
+
+const { track } = useCommerceAnalytics()
 
 const accent = computed(() => {
   const eyebrow = props.hero.eyebrow.toLowerCase()
@@ -59,6 +66,23 @@ const ctaClass = (variant = 'primary') => {
 }
 
 const isRouteLink = (href: string) => href.startsWith('/')
+
+const trackCtaClick = (cta: { label: string; href: string; variant?: string }) => {
+  if (!props.analyticsContext) {
+    return
+  }
+
+  track('commerce_cta_click', {
+    page: props.analyticsContext,
+    locale: props.locale,
+    properties: {
+      ctaLabel: cta.label,
+      ctaHref: cta.href,
+      ctaVariant: cta.variant || 'primary',
+      heroEyebrow: props.hero.eyebrow
+    }
+  })
+}
 </script>
 
 <template>
@@ -82,6 +106,7 @@ const isRouteLink = (href: string) => href.startsWith('/')
         :to="hero.primaryCta.href"
         :class="ctaClass(hero.primaryCta.variant)"
         class="rounded-md px-5 py-3 text-sm font-semibold transition"
+        @click="trackCtaClick(hero.primaryCta)"
       >
         {{ hero.primaryCta.label }}
       </NuxtLink>
@@ -90,6 +115,7 @@ const isRouteLink = (href: string) => href.startsWith('/')
         :href="hero.primaryCta.href"
         :class="ctaClass(hero.primaryCta.variant)"
         class="rounded-md px-5 py-3 text-sm font-semibold transition"
+        @click="trackCtaClick(hero.primaryCta)"
       >
         {{ hero.primaryCta.label }}
       </a>
@@ -100,6 +126,7 @@ const isRouteLink = (href: string) => href.startsWith('/')
           :to="cta.href"
           :class="ctaClass(cta.variant)"
           class="rounded-md px-5 py-3 text-sm font-semibold transition"
+          @click="trackCtaClick(cta)"
         >
           {{ cta.label }}
         </NuxtLink>
@@ -108,6 +135,7 @@ const isRouteLink = (href: string) => href.startsWith('/')
           :href="cta.href"
           :class="ctaClass(cta.variant)"
           class="rounded-md px-5 py-3 text-sm font-semibold transition"
+          @click="trackCtaClick(cta)"
         >
           {{ cta.label }}
         </a>

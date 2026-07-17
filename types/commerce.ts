@@ -7,6 +7,15 @@ export type CommercePageType =
 
 export type CommerceEventPrefix = 'home' | 'commerce' | 'local' | 'ecom' | 'b2b'
 
+export type CommerceAnalyticsEvent =
+  | 'commerce_page_view'
+  | 'commerce_cta_click'
+  | 'commerce_demo_start'
+  | 'commerce_demo_complete'
+  | 'commerce_lead_form_start'
+  | 'commerce_lead_mock_submit'
+  | 'commerce_lead_summary_generated'
+
 export type CommerceMarket = 'philippines' | 'southeast_asia'
 
 export type CommerceLanguage = 'zh' | 'en'
@@ -26,6 +35,20 @@ export interface CommerceLocaleContext {
   languageLabel: string
   audiences: CommerceAudience[]
   audienceLabel: string
+}
+
+export interface CommerceAnalyticsPageContext {
+  pageType: CommercePageType
+  eventPrefix: CommerceEventPrefix
+  slug: string
+}
+
+export interface CommerceAnalyticsPayload {
+  event: CommerceAnalyticsEvent
+  page: CommerceAnalyticsPageContext
+  locale?: CommerceLocaleContext
+  properties?: Record<string, unknown>
+  timestamp: string
 }
 
 export interface CommerceCta {
