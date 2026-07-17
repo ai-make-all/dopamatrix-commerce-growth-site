@@ -1,14 +1,42 @@
 <script setup lang="ts">
-import type { CommerceSectionItem } from '~/types/commerce'
+import type { CommerceAnalyticsPageContext, CommerceSectionItem } from '~/types/commerce'
 
 const props = defineProps<{
   title: string
   items: CommerceSectionItem[]
   description?: string
   links?: Record<string, string>
+  analyticsContext?: CommerceAnalyticsPageContext
 }>()
 
 const getItemHref = (item: CommerceSectionItem) => props.links?.[item.title]
+
+const routeTargetByHref: Record<string, string> = {
+  '/use-cases/local-brands': 'local_brands',
+  '/use-cases/ecommerce-products': 'ecommerce_products',
+  '/use-cases/b2b-leads': 'b2b_leads'
+}
+
+const { track } = useCommerceAnalytics()
+
+const trackRouteSelect = (href?: string) => {
+  if (!props.analyticsContext || !href) {
+    return
+  }
+
+  const targetRoute = routeTargetByHref[href]
+
+  if (!targetRoute) {
+    return
+  }
+
+  track('commerce_route_select', {
+    page: props.analyticsContext,
+    properties: {
+      targetRoute
+    }
+  })
+}
 </script>
 
 <template>
@@ -25,6 +53,7 @@ const getItemHref = (item: CommerceSectionItem) => props.links?.[item.title]
           v-if="getItemHref(item)"
           :to="getItemHref(item)"
           class="rounded-lg border border-dopa-border bg-dopa-card p-5 transition hover:border-dopa-cyan/70"
+          @click="trackRouteSelect(getItemHref(item))"
         >
           <h3 class="text-lg font-semibold text-dopa-text">
             {{ item.title }}

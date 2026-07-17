@@ -37,10 +37,12 @@ onMounted(() => {
     <CommerceSectionRenderer
       v-for="group in sectionGroups"
       :key="group.id"
+      :id="group.id"
       :title="group.title"
       :description="group.description"
       :items="group.items"
       :links="group.links"
+      :analytics-context="analyticsContext"
     />
 
     <CommerceFAQ :items="page.faq" />

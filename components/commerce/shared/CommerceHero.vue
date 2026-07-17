@@ -67,8 +67,31 @@ const ctaClass = (variant = 'primary') => {
 
 const isRouteLink = (href: string) => href.startsWith('/')
 
+const routeTargetByHref: Record<string, string> = {
+  '/use-cases/local-brands': 'local_brands',
+  '/use-cases/ecommerce-products': 'ecommerce_products',
+  '/use-cases/b2b-leads': 'b2b_leads'
+}
+
+const isRouteLabel = (href: string) => {
+  return props.analyticsContext?.pageType === 'commerce_growth' && href === '#routes'
+}
+
 const trackCtaClick = (cta: { label: string; href: string; variant?: string }) => {
   if (!props.analyticsContext) {
+    return
+  }
+
+  const targetRoute = routeTargetByHref[cta.href]
+
+  if (targetRoute) {
+    track('commerce_route_select', {
+      page: props.analyticsContext,
+      locale: props.locale,
+      properties: {
+        targetRoute
+      }
+    })
     return
   }
 
@@ -101,8 +124,12 @@ const trackCtaClick = (cta: { label: string; href: string; variant?: string }) =
     </p>
 
     <div class="mt-8 flex flex-wrap gap-3">
+      <MetricPill
+        v-if="isRouteLabel(hero.primaryCta.href)"
+        :label="hero.primaryCta.label"
+      />
       <NuxtLink
-        v-if="isRouteLink(hero.primaryCta.href)"
+        v-else-if="isRouteLink(hero.primaryCta.href)"
         :to="hero.primaryCta.href"
         :class="ctaClass(hero.primaryCta.variant)"
         class="rounded-md px-5 py-3 text-sm font-semibold transition"

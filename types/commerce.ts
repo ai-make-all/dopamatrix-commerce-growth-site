@@ -10,6 +10,7 @@ export type CommerceEventPrefix = 'home' | 'commerce' | 'local' | 'ecom' | 'b2b'
 export type CommerceAnalyticsEvent =
   | 'commerce_page_view'
   | 'commerce_cta_click'
+  | 'commerce_route_select'
   | 'commerce_demo_start'
   | 'commerce_demo_complete'
   | 'commerce_lead_form_start'
