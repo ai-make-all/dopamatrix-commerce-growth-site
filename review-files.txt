@@ -24,4 +24,5 @@ components/commerce/shared/CommerceLeadCapture.vue
 components/commerce/shared/CommerceSectionRenderer.vue
 composables/useCommerceSeo.ts
 composables/useCommerceAnalytics.ts
+plugins/posthog.client.ts
 components/commerce/shared/CommerceLocaleBadge.vue

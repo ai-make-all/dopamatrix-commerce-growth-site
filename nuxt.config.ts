@@ -13,6 +13,7 @@ export default defineNuxtConfig({
       apiBaseUrl: process.env.NUXT_PUBLIC_API_BASE_URL || '',
       posthogKey: process.env.NUXT_PUBLIC_POSTHOG_KEY || '',
       posthogHost: process.env.NUXT_PUBLIC_POSTHOG_HOST || 'https://us.i.posthog.com',
+      posthogEnabled: process.env.NUXT_PUBLIC_POSTHOG_ENABLED === 'true',
       whatsappUrl: process.env.NUXT_PUBLIC_WHATSAPP_URL || '',
       telegramUrl: process.env.NUXT_PUBLIC_TELEGRAM_URL || ''
     }
