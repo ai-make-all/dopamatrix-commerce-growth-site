@@ -71,8 +71,10 @@ Cloudflare Pages build settings:
 
 - Framework preset: Nuxt
 - Build command: `npm run generate`
-- Build output directory: `.output/public`
+- Build output directory: `dist`
 - Node version: 22
+
+In the Cloudflare Pages Nuxt preset used by this project, `npm run generate` outputs `dist` in the Cloudflare build environment. Use `dist` as the Build output directory.
 
 ## Security Rules
 
