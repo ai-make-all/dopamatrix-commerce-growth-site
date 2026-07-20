@@ -1,6 +1,7 @@
 package.json
 nuxt.config.ts
 docs/posthog-dashboard-schema.md
+docs/cloudflare-pages-env.md
 types/commerce.ts
 data/commerce/markets.ts
 data/commerce/localBrands.ts
