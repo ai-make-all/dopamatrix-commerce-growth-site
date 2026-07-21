@@ -3,6 +3,7 @@ nuxt.config.ts
 docs/posthog-dashboard-schema.md
 docs/cloudflare-pages-env.md
 docs/lead-submission-contract.md
+functions/api/leads.ts
 types/commerce.ts
 data/commerce/markets.ts
 data/commerce/localBrands.ts

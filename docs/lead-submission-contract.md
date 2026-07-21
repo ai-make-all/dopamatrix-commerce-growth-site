@@ -30,7 +30,20 @@ If deployed with Cloudflare Pages Functions, the future path can be:
 functions/api/leads.ts
 ```
 
-This phase only defines the boundary. It does not implement the endpoint.
+Phase 5-C adds a mock Cloudflare Pages Function at this path. It defines and validates the server entry point, but it still does not store lead data or forward lead data to any destination.
+
+## Phase 5-C Mock Endpoint Status
+
+- A Cloudflare Pages Function mock endpoint has been created.
+- Function file path: `functions/api/leads.ts`.
+- HTTP path: `POST /api/leads`.
+- The endpoint currently returns a mock response only.
+- The endpoint does not store leads.
+- The endpoint does not forward leads to CRM.
+- The endpoint does not send email.
+- The endpoint does not replace the frontend mock adapter.
+- The frontend still defaults to `mockLeadAdapter`.
+- A frontend API adapter should be introduced in a later phase before this endpoint is used by the Lead Capture UI.
 
 ## Request Payload Contract
 
