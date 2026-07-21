@@ -1,0 +1,184 @@
+# DopaMatrix Commerce Growth Lead Submission Contract v1
+
+## Purpose
+
+This file defines the data contract, server boundary, security requirements, and future integration direction from the Commerce Growth Suite frontend Lead Capture flow to a future server-side Lead Submission API.
+
+The current phase remains mock submit only. No real lead data is submitted.
+
+## Current State
+
+- Lead Capture UI exists.
+- Mock submit exists.
+- Payload preview exists.
+- Lead Summary exists.
+- PostHog analytics is connected.
+- Real Lead API is not implemented.
+- The current frontend does not submit real data.
+
+## Lead Submission Endpoint Proposal
+
+Future endpoint:
+
+```http
+POST /api/leads
+```
+
+If deployed with Cloudflare Pages Functions, the future path can be:
+
+```text
+functions/api/leads.ts
+```
+
+This phase only defines the boundary. It does not implement the endpoint.
+
+## Request Payload Contract
+
+Payload v1 structure:
+
+```json
+{
+  "payloadVersion": "1.0",
+  "source": "commerce_growth_site",
+  "submittedAt": "ISO timestamp",
+  "page": {
+    "pageType": "local_brands | ecommerce_products | b2b_leads | commerce_growth | home",
+    "eventPrefix": "local | ecom | b2b | commerce | home",
+    "slug": "/use-cases/local-brands"
+  },
+  "locale": {
+    "market": "philippines | southeast_asia | middle_east | global",
+    "regionLabel": "Philippines",
+    "language": "zh",
+    "languageLabel": "Chinese + English",
+    "audiences": ["chinese_founder"],
+    "audienceLabel": "Chinese founders + local operators"
+  },
+  "lead": {
+    "businessType": "",
+    "targetMarket": "",
+    "growthGoal": ""
+  },
+  "conversionIntent": {
+    "primaryGoal": "store_visit | ecommerce_order | b2b_inquiry",
+    "suggestedPath": ""
+  },
+  "attribution": {
+    "utmSource": "",
+    "utmMedium": "",
+    "utmCampaign": "",
+    "landingPage": "",
+    "referrer": ""
+  },
+  "meta": {
+    "mode": "production",
+    "userAgent": "",
+    "url": ""
+  }
+}
+```
+
+Field naming should remain consistent within each object. The current analytics adapter uses flattened PostHog fields such as `page_type`, but the API payload can use structured objects.
+
+## Required Fields
+
+Minimum server-side required fields:
+
+- `payloadVersion`
+- `source`
+- `submittedAt`
+- `page.pageType`
+- `page.slug`
+- `lead.businessType`
+- `lead.targetMarket`
+- `lead.growthGoal`
+
+## Validation Rules
+
+Future server-side validation should enforce:
+
+- `payloadVersion` must be `1.0`.
+- `source` must be `commerce_growth_site`.
+- `page.pageType` must be an allowed enum value.
+- `lead.businessType`, `lead.targetMarket`, and `lead.growthGoal` must not be empty.
+- String length limits must be enforced.
+- HTML or script injection must be rejected or sanitized.
+- Frontend-provided `submittedAt` must not be trusted as the server receive time. The server should generate `receivedAt`.
+- Frontend-provided IP or `userAgent` must not be trusted. The server should read these from the request.
+
+## Security Boundary
+
+- Frontend `NUXT_PUBLIC_*` variables are public.
+- Private tokens must never enter the frontend.
+- Future CRM, Email, or Google Sheets tokens must be stored in Cloudflare server-side environment variables.
+- The browser must not call private third-party CRM APIs directly.
+- Future abuse protection should include Turnstile or a honeypot.
+- The server should include rate limiting or basic abuse protection.
+
+## Response Contract
+
+Future success response:
+
+```json
+{
+  "ok": true,
+  "leadId": "lead_xxx",
+  "receivedAt": "ISO timestamp",
+  "mode": "production"
+}
+```
+
+Future failure response:
+
+```json
+{
+  "ok": false,
+  "error": {
+    "code": "VALIDATION_ERROR",
+    "message": "Invalid lead payload"
+  }
+}
+```
+
+## PostHog Relationship
+
+After the real API succeeds, the frontend should continue sending:
+
+- `commerce_lead_submit_attempt`
+- `commerce_lead_submit_success`
+- `commerce_lead_submit_error`
+
+The current analytics contract already includes:
+
+- `commerce_lead_mock_submit`
+- `commerce_lead_summary_generated`
+
+Future phases must not directly remove existing events. Mock and real submission behavior should be distinguished by version fields and event semantics.
+
+## Integration Roadmap
+
+Phase 5-B:
+Frontend lead submit adapter design.
+
+Phase 5-C:
+Cloudflare Pages Function mock endpoint.
+
+Phase 5-D:
+Server-side validation.
+
+Phase 5-E:
+Real destination integration, such as email, Google Sheets, or CRM.
+
+Phase 6:
+UTM and campaign attribution.
+
+## Review Checklist
+
+- Contract does not include secrets.
+- Endpoint is proposed but not implemented.
+- Required fields are clear.
+- Server boundary is clear.
+- Security rules are documented.
+- Existing mock submit behavior remains unchanged.
+- Existing PostHog events remain unchanged.
+- Docs file is included in `review-files.txt`.
