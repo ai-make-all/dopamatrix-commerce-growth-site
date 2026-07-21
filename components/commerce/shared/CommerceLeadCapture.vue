@@ -16,13 +16,14 @@ const props = defineProps<{
 const formValues = reactive<Record<string, string>>(
   Object.fromEntries(props.lead.fields.map((field) => [field.key, '']))
 )
-const submitStatus = ref<'idle' | 'error' | 'success'>('idle')
+const submitStatus = ref<'idle' | 'submitting' | 'error' | 'success'>('idle')
 const errorMessage = ref('')
 const mockPayload = ref<CommerceLeadPayload | null>(null)
 const leadSummary = ref<CommerceLeadSummary | null>(null)
 const showPayloadPreview = ref(false)
 const hasTrackedFormStart = ref(false)
 const { track } = useCommerceAnalytics()
+const { submitLead } = useCommerceLeadSubmit()
 
 const analyticsContext = computed<CommerceAnalyticsContext>(() => ({
   page: {
@@ -129,7 +130,7 @@ const trackFormStart = () => {
   })
 }
 
-const handleSubmit = () => {
+const handleSubmit = async () => {
   const hasMissingRequiredField = props.lead.fields.some((field) => {
     return field.required && !formValues[field.key]?.trim()
   })
@@ -143,11 +144,13 @@ const handleSubmit = () => {
     return
   }
 
-  submitStatus.value = 'success'
+  submitStatus.value = 'submitting'
   errorMessage.value = ''
-  const generatedSummary = buildLeadSummary()
-  leadSummary.value = generatedSummary
+  mockPayload.value = null
+  leadSummary.value = null
   showPayloadPreview.value = false
+
+  const generatedSummary = buildLeadSummary()
   const generatedPayload: CommerceLeadPayload = {
     mode: 'mock',
     submittedAt: new Date().toISOString(),
@@ -169,7 +172,28 @@ const handleSubmit = () => {
     },
     fields: { ...formValues }
   }
-  mockPayload.value = generatedPayload
+
+  try {
+    const result = await submitLead(generatedPayload)
+
+    if (!result.ok) {
+      submitStatus.value = 'error'
+      errorMessage.value = result.error?.message || 'Unable to generate the mock payload. Please try again.'
+      mockPayload.value = null
+      leadSummary.value = null
+      return
+    }
+
+    submitStatus.value = 'success'
+    mockPayload.value = result.payload || generatedPayload
+    leadSummary.value = generatedSummary
+  } catch {
+    submitStatus.value = 'error'
+    errorMessage.value = 'Unable to generate the mock payload. Please try again.'
+    mockPayload.value = null
+    leadSummary.value = null
+    return
+  }
 
   track('commerce_lead_mock_submit', analyticsContext.value, {
     fieldKeys: Object.keys(formValues),
@@ -268,6 +292,9 @@ const resetMockPayload = () => {
           <div class="mt-4 rounded-md border border-dopa-border bg-dopa-bg px-4 py-3">
             <p v-if="submitStatus === 'idle'" class="text-xs leading-5 text-dopa-muted">
               No data is submitted yet. This form only generates a local mock payload.
+            </p>
+            <p v-else-if="submitStatus === 'submitting'" class="text-xs leading-5 text-dopa-muted">
+              Generating mock lead payload locally...
             </p>
             <p v-else-if="submitStatus === 'error'" class="text-xs font-semibold leading-5 text-dopa-amber">
               {{ errorMessage }}

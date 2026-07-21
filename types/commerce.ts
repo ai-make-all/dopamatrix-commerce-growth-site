@@ -172,6 +172,23 @@ export interface CommerceLeadPayload {
   fields: Record<string, string>
 }
 
+export type LeadSubmitMode = 'mock' | 'api'
+
+export interface LeadSubmitResult {
+  ok: boolean
+  mode: LeadSubmitMode
+  payload?: CommerceLeadPayload
+  leadId?: string
+  error?: {
+    code: string
+    message: string
+  }
+}
+
+export interface LeadSubmitAdapter {
+  submit(payload: CommerceLeadPayload): Promise<LeadSubmitResult>
+}
+
 export interface CommerceFaqItem {
   question: string
   answer: string
