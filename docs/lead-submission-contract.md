@@ -45,6 +45,17 @@ Phase 5-C adds a mock Cloudflare Pages Function at this path. It defines and val
 - The frontend still defaults to `mockLeadAdapter`.
 - A frontend API adapter should be introduced in a later phase before this endpoint is used by the Lead Capture UI.
 
+## Phase 5-D Server-side Validation Status
+
+- The `/api/leads` mock endpoint now includes server-side validation hardening.
+- The endpoint currently supports both the current frontend `fields` shape and the future API contract `lead` shape.
+- The endpoint validates `page`, `source`, `submittedAt`, payload version or mock mode, and lead intent fields.
+- The endpoint returns structured validation errors with a bounded `details` array.
+- The endpoint does not echo the full submitted payload in responses.
+- The endpoint does not store, forward, or send lead data.
+- The frontend still defaults to `mockLeadAdapter`.
+- A frontend API adapter or real destination integration should be introduced only in a later phase.
+
 ## Request Payload Contract
 
 Payload v1 structure:
@@ -188,7 +199,9 @@ UTM and campaign attribution.
 ## Review Checklist
 
 - Contract does not include secrets.
-- Endpoint is proposed but not implemented.
+- Mock endpoint exists at functions/api/leads.ts.
+- Real destination integration is not implemented.
+- Existing frontend mock submit behavior remains unchanged.
 - Required fields are clear.
 - Server boundary is clear.
 - Security rules are documented.
