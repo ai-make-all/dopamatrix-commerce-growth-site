@@ -57,6 +57,18 @@ The following events are emitted only when the frontend submit adapter is explic
 
 Default mock mode still emits `commerce_lead_mock_submit`. The API preview events do not replace the current mock funnel dashboard.
 
+## Future Destination Events
+
+Future destination adapter events may include:
+
+- `commerce_lead_destination_attempt`
+- `commerce_lead_destination_success`
+- `commerce_lead_destination_error`
+
+These events are not implemented in the current phase. They should only be emitted after a real server-side destination adapter is introduced.
+
+The current Phase 5-F dashboard does not depend on these events.
+
 ## Dashboard
 
 Dashboard name:

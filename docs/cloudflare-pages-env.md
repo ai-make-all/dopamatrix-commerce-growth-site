@@ -38,14 +38,15 @@ NUXT_PUBLIC_SITE_URL=https://dopamatrix.com
 NUXT_PUBLIC_API_BASE_URL=
 NUXT_PUBLIC_WHATSAPP_URL=
 NUXT_PUBLIC_TELEGRAM_URL=
-NUXT_PUBLIC_POSTHOG_ENABLED=true
+NUXT_PUBLIC_POSTHOG_ENABLED=false
 NUXT_PUBLIC_POSTHOG_DEBUG=false
-NUXT_PUBLIC_POSTHOG_KEY=phc_xxxxxxxxxxxxxxxxx
+NUXT_PUBLIC_POSTHOG_KEY=
 NUXT_PUBLIC_POSTHOG_HOST=https://us.i.posthog.com
 NUXT_PUBLIC_LEAD_SUBMIT_MODE=mock
 NUXT_PUBLIC_LEAD_API_PATH=/api/leads
 NODE_VERSION=22
 ```
+When production analytics collection is explicitly approved, set NUXT_PUBLIC_POSTHOG_ENABLED=true and provide the PostHog Project token.
 
 If the production custom domain has not been resolved yet, use the default Cloudflare Pages `pages.dev` URL as `NUXT_PUBLIC_SITE_URL` first.
 
@@ -76,6 +77,30 @@ For manual API adapter preview testing, temporarily set `NUXT_PUBLIC_LEAD_SUBMIT
 `NUXT_PUBLIC_LEAD_API_PATH` is public and should only contain the same-origin mock endpoint path, such as `/api/leads`. Do not put private tokens or destination credentials in any `NUXT_PUBLIC_*` variable.
 
 The Lead API endpoint is still a mock endpoint. It does not connect to CRM, Email, Google Sheets, or a database.
+
+## Future Server-side Destination Variables
+
+Future destination variables must be server-side variables, not `NUXT_PUBLIC_*` variables:
+
+```env
+LEAD_DESTINATION_MODE=mock
+LEAD_EMAIL_PROVIDER=
+LEAD_EMAIL_TO=
+LEAD_EMAIL_FROM=
+LEAD_EMAIL_API_KEY=
+LEAD_SHEETS_ID=
+LEAD_SHEETS_SERVICE_ACCOUNT_JSON=
+LEAD_WEBHOOK_URL=
+LEAD_WEBHOOK_SECRET=
+```
+
+Do not set these variables during Phase 5-G.
+
+Do not put provider secrets, destination credentials, or private tokens in `NUXT_PUBLIC_*`.
+
+Production should continue to keep lead destination mode as mock until a real provider integration is reviewed and approved.
+
+Phase 5-G documents the destination preparation only. It does not enable real Email, Sheets, CRM, webhook, or database delivery.
 
 ## Build Settings
 

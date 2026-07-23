@@ -68,6 +68,18 @@ Phase 5-C adds a mock Cloudflare Pages Function at this path. It defines and val
 - The API adapter is preview-only and still targets the mock endpoint.
 - No CRM, Email, Google Sheets, or database destination is connected.
 
+## Phase 5-G Real Destination Preparation Status
+
+- Lead Destination Strategy documentation has been added.
+- Lead Destination Contract documentation has been added.
+- The recommended v1 destination is Email notification.
+- Google Sheets is recommended as a second-stage lightweight lead log.
+- CRM and self-hosted database integration should come later.
+- No real Email, Sheets, CRM, webhook, or database provider is connected.
+- `/api/leads` still returns `mock_function`.
+- Production frontend submit still defaults to `mockLeadAdapter`.
+- Server-side destination adapters should be implemented only in a later phase.
+
 ## Request Payload Contract
 
 Payload v1 structure:
@@ -206,6 +218,12 @@ Phase 5-E:
 Frontend API adapter preview behind an environment flag.
 
 Phase 5-F:
+Cloudflare API adapter smoke test.
+
+Phase 5-G:
+Real destination preparation.
+
+Phase 5-H:
 Real destination integration, such as email, Google Sheets, or CRM.
 
 Phase 6:
@@ -216,6 +234,7 @@ UTM and campaign attribution.
 - Contract does not include secrets.
 - Mock endpoint exists at functions/api/leads.ts.
 - Real destination integration is not implemented.
+- Destination strategy and contract docs are included in `review-files.txt`.
 - Existing frontend mock submit behavior remains unchanged.
 - Required fields are clear.
 - Server boundary is clear.
