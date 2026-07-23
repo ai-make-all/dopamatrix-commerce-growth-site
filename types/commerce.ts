@@ -16,6 +16,9 @@ export type CommerceAnalyticsEvent =
   | 'commerce_lead_form_start'
   | 'commerce_lead_mock_submit'
   | 'commerce_lead_summary_generated'
+  | 'commerce_lead_submit_attempt'
+  | 'commerce_lead_submit_success'
+  | 'commerce_lead_submit_error'
 
 export type CommerceMarket = 'philippines' | 'southeast_asia'
 
@@ -182,12 +185,37 @@ export interface LeadSubmitResult {
   error?: {
     code: string
     message: string
+    details?: unknown
   }
 }
 
 export interface LeadSubmitAdapter {
   submit(payload: CommerceLeadPayload): Promise<LeadSubmitResult>
 }
+
+export interface LeadApiSuccessResponse {
+  ok: true
+  mode: 'mock_function'
+  leadId: string
+  receivedAt: string
+  message: string
+  validationSummary?: {
+    acceptedShape?: string
+    pageType?: string
+    source?: string
+  }
+}
+
+export interface LeadApiErrorResponse {
+  ok: false
+  error: {
+    code: string
+    message: string
+    details?: unknown
+  }
+}
+
+export type LeadApiResponse = LeadApiSuccessResponse | LeadApiErrorResponse
 
 export interface CommerceFaqItem {
   question: string

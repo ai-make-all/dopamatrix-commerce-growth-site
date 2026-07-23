@@ -1,5 +1,6 @@
 package.json
 nuxt.config.ts
+.env.example
 docs/posthog-dashboard-schema.md
 docs/cloudflare-pages-env.md
 docs/lead-submission-contract.md
@@ -29,6 +30,7 @@ components/commerce/shared/CommerceSectionRenderer.vue
 composables/useCommerceSeo.ts
 composables/useCommerceAnalytics.ts
 composables/useCommerceLeadSubmit.ts
+composables/adapters/apiLeadAdapter.ts
 composables/adapters/mockLeadAdapter.ts
 plugins/posthog.client.ts
 components/commerce/shared/CommerceLocaleBadge.vue

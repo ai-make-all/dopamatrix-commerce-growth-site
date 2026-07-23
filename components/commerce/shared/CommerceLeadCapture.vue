@@ -23,7 +23,7 @@ const leadSummary = ref<CommerceLeadSummary | null>(null)
 const showPayloadPreview = ref(false)
 const hasTrackedFormStart = ref(false)
 const { track } = useCommerceAnalytics()
-const { submitLead } = useCommerceLeadSubmit()
+const { getLeadSubmitMode, submitLead } = useCommerceLeadSubmit()
 
 const analyticsContext = computed<CommerceAnalyticsContext>(() => ({
   page: {
@@ -173,10 +173,27 @@ const handleSubmit = async () => {
     fields: { ...formValues }
   }
 
+  const submitMode = getLeadSubmitMode()
+  const fieldKeys = Object.keys(formValues)
+
+  if (submitMode === 'api') {
+    track('commerce_lead_submit_attempt', analyticsContext.value, {
+      fieldKeys,
+      payloadVersion: '1.0'
+    })
+  }
+
   try {
     const result = await submitLead(generatedPayload)
 
     if (!result.ok) {
+      if (result.mode === 'api') {
+        track('commerce_lead_submit_error', analyticsContext.value, {
+          errorCode: result.error?.code || 'LEAD_SUBMIT_ERROR',
+          payloadVersion: '1.0'
+        })
+      }
+
       submitStatus.value = 'error'
       errorMessage.value = result.error?.message || 'Unable to generate the mock payload. Please try again.'
       mockPayload.value = null
@@ -187,18 +204,33 @@ const handleSubmit = async () => {
     submitStatus.value = 'success'
     mockPayload.value = result.payload || generatedPayload
     leadSummary.value = generatedSummary
+
+    if (result.mode === 'api') {
+      track('commerce_lead_submit_success', analyticsContext.value, {
+        fieldKeys,
+        leadId: result.leadId,
+        payloadVersion: '1.0'
+      })
+    } else {
+      track('commerce_lead_mock_submit', analyticsContext.value, {
+        fieldKeys,
+        payloadVersion: '1.0'
+      })
+    }
   } catch {
+    if (submitMode === 'api') {
+      track('commerce_lead_submit_error', analyticsContext.value, {
+        errorCode: 'LEAD_SUBMIT_ERROR',
+        payloadVersion: '1.0'
+      })
+    }
+
     submitStatus.value = 'error'
     errorMessage.value = 'Unable to generate the mock payload. Please try again.'
     mockPayload.value = null
     leadSummary.value = null
     return
   }
-
-  track('commerce_lead_mock_submit', analyticsContext.value, {
-    fieldKeys: Object.keys(formValues),
-    payloadVersion: '1.0'
-  })
 
   track('commerce_lead_summary_generated', analyticsContext.value, {
     conversionIntent: generatedPayload.conversionIntent,

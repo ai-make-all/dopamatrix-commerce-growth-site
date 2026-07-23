@@ -14,6 +14,8 @@ export default defineNuxtConfig({
       posthogKey: process.env.NUXT_PUBLIC_POSTHOG_KEY || '',
       posthogHost: process.env.NUXT_PUBLIC_POSTHOG_HOST || 'https://us.i.posthog.com',
       posthogEnabled: process.env.NUXT_PUBLIC_POSTHOG_ENABLED === 'true',
+      leadSubmitMode: process.env.NUXT_PUBLIC_LEAD_SUBMIT_MODE || 'mock',
+      leadApiPath: process.env.NUXT_PUBLIC_LEAD_API_PATH || '/api/leads',
       whatsappUrl: process.env.NUXT_PUBLIC_WHATSAPP_URL || '',
       telegramUrl: process.env.NUXT_PUBLIC_TELEGRAM_URL || ''
     }

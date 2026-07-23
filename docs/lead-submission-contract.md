@@ -56,6 +56,18 @@ Phase 5-C adds a mock Cloudflare Pages Function at this path. It defines and val
 - The frontend still defaults to `mockLeadAdapter`.
 - A frontend API adapter or real destination integration should be introduced only in a later phase.
 
+## Phase 5-E Frontend API Adapter Preview Status
+
+- `apiLeadAdapter` has been added as a frontend submit adapter.
+- `useCommerceLeadSubmit` now selects the adapter from public runtime config.
+- The default submit mode is `NUXT_PUBLIC_LEAD_SUBMIT_MODE=mock`.
+- The frontend only posts to `/api/leads` when `NUXT_PUBLIC_LEAD_SUBMIT_MODE=api`.
+- `NUXT_PUBLIC_LEAD_API_PATH` defaults to `/api/leads`.
+- `mockLeadAdapter` remains the default path.
+- Production should remain `mock` unless a manual API preview smoke test is planned.
+- The API adapter is preview-only and still targets the mock endpoint.
+- No CRM, Email, Google Sheets, or database destination is connected.
+
 ## Request Payload Contract
 
 Payload v1 structure:
@@ -191,6 +203,9 @@ Phase 5-D:
 Server-side validation.
 
 Phase 5-E:
+Frontend API adapter preview behind an environment flag.
+
+Phase 5-F:
 Real destination integration, such as email, Google Sheets, or CRM.
 
 Phase 6:

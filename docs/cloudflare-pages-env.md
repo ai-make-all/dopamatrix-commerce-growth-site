@@ -21,6 +21,8 @@ NUXT_PUBLIC_POSTHOG_ENABLED=false
 NUXT_PUBLIC_POSTHOG_DEBUG=true
 NUXT_PUBLIC_POSTHOG_KEY=
 NUXT_PUBLIC_POSTHOG_HOST=https://us.i.posthog.com
+NUXT_PUBLIC_LEAD_SUBMIT_MODE=mock
+NUXT_PUBLIC_LEAD_API_PATH=/api/leads
 ```
 
 Local development does not send real PostHog data by default.
@@ -40,6 +42,8 @@ NUXT_PUBLIC_POSTHOG_ENABLED=true
 NUXT_PUBLIC_POSTHOG_DEBUG=false
 NUXT_PUBLIC_POSTHOG_KEY=phc_xxxxxxxxxxxxxxxxx
 NUXT_PUBLIC_POSTHOG_HOST=https://us.i.posthog.com
+NUXT_PUBLIC_LEAD_SUBMIT_MODE=mock
+NUXT_PUBLIC_LEAD_API_PATH=/api/leads
 NODE_VERSION=22
 ```
 
@@ -60,10 +64,18 @@ NUXT_PUBLIC_POSTHOG_ENABLED=false
 NUXT_PUBLIC_POSTHOG_DEBUG=false
 NUXT_PUBLIC_POSTHOG_KEY=
 NUXT_PUBLIC_POSTHOG_HOST=https://us.i.posthog.com
+NUXT_PUBLIC_LEAD_SUBMIT_MODE=mock
+NUXT_PUBLIC_LEAD_API_PATH=/api/leads
 NODE_VERSION=22
 ```
 
 Preview deployments do not send real PostHog data by default. This avoids polluting Production analytics from PR or branch deployments.
+
+For manual API adapter preview testing, temporarily set `NUXT_PUBLIC_LEAD_SUBMIT_MODE=api` in a Preview environment. Production should remain `mock` unless an explicit smoke test is planned.
+
+`NUXT_PUBLIC_LEAD_API_PATH` is public and should only contain the same-origin mock endpoint path, such as `/api/leads`. Do not put private tokens or destination credentials in any `NUXT_PUBLIC_*` variable.
+
+The Lead API endpoint is still a mock endpoint. It does not connect to CRM, Email, Google Sheets, or a database.
 
 ## Build Settings
 

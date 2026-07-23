@@ -18,6 +18,9 @@ Current Commerce Analytics events:
 - `commerce_lead_form_start`
 - `commerce_lead_mock_submit`
 - `commerce_lead_summary_generated`
+- `commerce_lead_submit_attempt`
+- `commerce_lead_submit_success`
+- `commerce_lead_submit_error`
 
 ## Shared Properties
 
@@ -42,6 +45,17 @@ Some events include their own properties, for example:
 - `demoType` / `completionMode`
 - `fieldKeys` / `payloadVersion`
 - `conversionIntent` / `summaryType`
+- `leadId` / `errorCode`
+
+## Phase 5-E API Preview Events
+
+The following events are emitted only when the frontend submit adapter is explicitly switched to API preview mode with `NUXT_PUBLIC_LEAD_SUBMIT_MODE=api`:
+
+- `commerce_lead_submit_attempt`
+- `commerce_lead_submit_success`
+- `commerce_lead_submit_error`
+
+Default mock mode still emits `commerce_lead_mock_submit`. The API preview events do not replace the current mock funnel dashboard.
 
 ## Dashboard
 
