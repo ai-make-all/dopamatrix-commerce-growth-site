@@ -67,6 +67,8 @@ Future destination adapter events may include:
 
 These events are not implemented in the current phase. They should only be emitted after a real server-side destination adapter is introduced.
 
+Phase 5-H adds a server-side mock destination scaffold only. It does not emit these events.
+
 The current Phase 5-F dashboard does not depend on these events.
 
 ## Dashboard

@@ -7,6 +7,10 @@ docs/lead-submission-contract.md
 docs/lead-destination-strategy.md
 docs/lead-destination-contract.md
 functions/api/leads.ts
+lib/lead-destination/types.ts
+lib/lead-destination/normalizeLead.ts
+lib/lead-destination/mockDestinationAdapter.ts
+lib/lead-destination/index.ts
 types/commerce.ts
 data/commerce/markets.ts
 data/commerce/localBrands.ts

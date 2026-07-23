@@ -1,7 +1,10 @@
+import { normalizeLeadForDestination, sendLeadToDestination } from '../../lib/lead-destination'
+
 type JsonRecord = Record<string, unknown>
 
 type FunctionContext = {
   request: Request
+  env?: Record<string, unknown>
 }
 
 type ValidationIssue = {
@@ -264,7 +267,7 @@ const createMockLeadId = () => {
   return `mock_lead_${randomValue.replaceAll('-', '').slice(0, 12)}`
 }
 
-export const onRequest = async ({ request }: FunctionContext) => {
+export const onRequest = async ({ request, env }: FunctionContext) => {
   if (request.method === 'OPTIONS') {
     return new Response(null, {
       status: 204,
@@ -318,16 +321,46 @@ export const onRequest = async ({ request }: FunctionContext) => {
     )
   }
 
+  const leadId = createMockLeadId()
+  const receivedAt = new Date().toISOString()
+  const normalizedLead = normalizeLeadForDestination({
+    payload,
+    leadId,
+    receivedAt
+  })
+  const destinationResult = await sendLeadToDestination({
+    lead: normalizedLead,
+    mode: typeof env?.LEAD_DESTINATION_MODE === 'string' ? env.LEAD_DESTINATION_MODE : 'mock'
+  })
+
+  if (!destinationResult.ok) {
+    return jsonResponse(
+      {
+        ok: false,
+        error: {
+          code: 'DESTINATION_ERROR',
+          message: 'Lead destination failed.'
+        }
+      },
+      502
+    )
+  }
+
   return jsonResponse({
     ok: true,
     mode: 'mock_function',
-    leadId: createMockLeadId(),
-    receivedAt: new Date().toISOString(),
+    leadId,
+    receivedAt,
     message: 'Mock lead received by Cloudflare Pages Function.',
     validationSummary: {
       acceptedShape: validationResult.acceptedShape,
       pageType: validationResult.pageType,
       source: validationResult.source
+    },
+    destinationSummary: {
+      ok: destinationResult.ok,
+      mode: destinationResult.mode,
+      destinationId: destinationResult.destinationId
     }
   })
 }

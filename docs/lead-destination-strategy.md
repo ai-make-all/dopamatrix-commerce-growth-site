@@ -64,12 +64,13 @@ This phase only documents the design. It does not implement destination adapters
 
 Phase 5-H:
 
-- Destination adapter interface draft.
+- Server-side destination adapter scaffold.
+- Mock destination adapter only.
 - Still no real provider call.
 
 Phase 5-I:
 
-- Email notification mock adapter.
+- Email provider selection and environment checklist.
 - Still no real email send.
 
 Phase 5-J:

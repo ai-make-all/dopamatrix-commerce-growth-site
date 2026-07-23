@@ -23,6 +23,20 @@ This must not be a `NUXT_PUBLIC_*` variable. It belongs to Cloudflare server-sid
 
 This phase only documents the modes. It does not implement code or enable a provider.
 
+## Phase 5-H Server-side Destination Adapter Scaffold Status
+
+- `lib/lead-destination/types.ts` has been added.
+- `lib/lead-destination/normalizeLead.ts` has been added.
+- `lib/lead-destination/mockDestinationAdapter.ts` has been added.
+- `lib/lead-destination/index.ts` has been added.
+- `/api/leads` normalizes the lead after validation succeeds.
+- `/api/leads` currently calls only the mock destination adapter.
+- No real Email, Sheets, CRM, database, or webhook destination is connected.
+- No external request is sent.
+- Raw payloads are not printed.
+- Normalized leads are not returned in public responses.
+- `LEAD_DESTINATION_MODE` defaults to `mock`.
+
 ## Destination Adapter Interface Draft
 
 Draft only:

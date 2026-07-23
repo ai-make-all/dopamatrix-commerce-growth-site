@@ -13,7 +13,9 @@ The current phase remains mock submit only. No real lead data is submitted.
 - Payload preview exists.
 - Lead Summary exists.
 - PostHog analytics is connected.
-- Real Lead API is not implemented.
+- A validated mock Lead API endpoint exists at `/api/leads`.
+- Real destination integration is not implemented.
+- The current frontend does not submit real lead data unless API preview mode is explicitly enabled.
 - The current frontend does not submit real data.
 
 ## Lead Submission Endpoint Proposal
@@ -79,6 +81,16 @@ Phase 5-C adds a mock Cloudflare Pages Function at this path. It defines and val
 - `/api/leads` still returns `mock_function`.
 - Production frontend submit still defaults to `mockLeadAdapter`.
 - Server-side destination adapters should be implemented only in a later phase.
+
+## Phase 5-H Server-side Destination Scaffold Status
+
+- `/api/leads` now normalizes valid lead payloads after validation.
+- `/api/leads` now calls a mock server-side destination adapter.
+- Successful responses may include a safe `destinationSummary`.
+- The endpoint still returns `mode: "mock_function"`.
+- This is not a real lead submission.
+- No Email, Sheets, CRM, webhook, or database destination is connected.
+- Raw payloads and normalized leads are not returned in public responses.
 
 ## Request Payload Contract
 
@@ -224,7 +236,13 @@ Phase 5-G:
 Real destination preparation.
 
 Phase 5-H:
-Real destination integration, such as email, Google Sheets, or CRM.
+Server-side destination adapter scaffold with mock destination only.
+
+Phase 5-I:
+Email provider selection and environment checklist.
+
+Phase 5-J:
+Real Email notification behind a server-side environment flag.
 
 Phase 6:
 UTM and campaign attribution.

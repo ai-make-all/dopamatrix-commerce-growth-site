@@ -100,7 +100,13 @@ Do not put provider secrets, destination credentials, or private tokens in `NUXT
 
 Production should continue to keep lead destination mode as mock until a real provider integration is reviewed and approved.
 
-Phase 5-G documents the destination preparation only. It does not enable real Email, Sheets, CRM, webhook, or database delivery.
+Phase 5-H reads `LEAD_DESTINATION_MODE` as a future server-side variable and defaults it to `mock`.
+
+You do not need to set `LEAD_DESTINATION_MODE` in Cloudflare for Phase 5-H.
+
+Future real destination phases will require provider secrets, but those secrets must remain server-side and must not use `NUXT_PUBLIC_*`.
+
+Phase 5-H adds only a mock destination adapter scaffold. It does not enable real Email, Sheets, CRM, webhook, or database delivery.
 
 ## Build Settings
 
