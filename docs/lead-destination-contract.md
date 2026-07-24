@@ -37,6 +37,17 @@ This phase only documents the modes. It does not implement code or enable a prov
 - Normalized leads are not returned in public responses.
 - `LEAD_DESTINATION_MODE` defaults to `mock`.
 
+## Phase 5-I Email Provider Selection Status
+
+- Resend is selected as the recommended v1 Email notification provider.
+- Cloudflare Email Service remains the Cloudflare-native alternative.
+- Postmark remains the transactional email alternative.
+- The destination adapter contract remains provider-agnostic.
+- A future email adapter should implement `LeadDestinationAdapter`.
+- A future email adapter should receive `NormalizedLead`, not raw payload.
+- A future email adapter must not return raw provider responses to the frontend.
+- No real email sending is implemented in Phase 5-I.
+
 ## Destination Adapter Interface Draft
 
 Draft only:

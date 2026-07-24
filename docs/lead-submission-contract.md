@@ -16,7 +16,6 @@ The current phase remains mock submit only. No real lead data is submitted.
 - A validated mock Lead API endpoint exists at `/api/leads`.
 - Real destination integration is not implemented.
 - The current frontend does not submit real lead data unless API preview mode is explicitly enabled.
-- The current frontend does not submit real data.
 
 ## Lead Submission Endpoint Proposal
 
@@ -91,6 +90,16 @@ Phase 5-C adds a mock Cloudflare Pages Function at this path. It defines and val
 - This is not a real lead submission.
 - No Email, Sheets, CRM, webhook, or database destination is connected.
 - Raw payloads and normalized leads are not returned in public responses.
+
+## Phase 5-I Email Provider Selection Status
+
+- Resend is selected as the recommended v1 Email notification provider.
+- Cloudflare Email Service is kept as the Cloudflare-native alternative.
+- Postmark is kept as the transactional email alternative.
+- Provider environment checklist documentation has been added.
+- No real email sending is implemented.
+- `/api/leads` still uses the mock destination adapter.
+- Production destination mode should remain `mock`.
 
 ## Request Payload Contract
 
@@ -242,7 +251,10 @@ Phase 5-I:
 Email provider selection and environment checklist.
 
 Phase 5-J:
-Real Email notification behind a server-side environment flag.
+Resend Email notification behind a server-side environment flag.
+
+Phase 5-K:
+Production-safe email lead notification rollout.
 
 Phase 6:
 UTM and campaign attribution.

@@ -6,6 +6,8 @@ docs/cloudflare-pages-env.md
 docs/lead-submission-contract.md
 docs/lead-destination-strategy.md
 docs/lead-destination-contract.md
+docs/lead-email-provider-selection.md
+docs/lead-email-env-checklist.md
 functions/api/leads.ts
 lib/lead-destination/types.ts
 lib/lead-destination/normalizeLead.ts

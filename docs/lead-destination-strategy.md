@@ -71,11 +71,15 @@ Phase 5-H:
 Phase 5-I:
 
 - Email provider selection and environment checklist.
+- Recommended provider: Resend.
+- Cloudflare Email Service is kept as a Cloudflare-native alternative.
+- Postmark is kept as a transactional email alternative.
 - Still no real email send.
 
 Phase 5-J:
 
-- Real Email provider integration behind an environment flag.
+- Resend email notification adapter behind a server-side environment flag.
+- Preview smoke test only first.
 
 Phase 5-K:
 

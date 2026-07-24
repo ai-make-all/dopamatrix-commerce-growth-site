@@ -87,6 +87,7 @@ LEAD_DESTINATION_MODE=mock
 LEAD_EMAIL_PROVIDER=
 LEAD_EMAIL_TO=
 LEAD_EMAIL_FROM=
+LEAD_EMAIL_REPLY_TO=
 LEAD_EMAIL_API_KEY=
 LEAD_SHEETS_ID=
 LEAD_SHEETS_SERVICE_ACCOUNT_JSON=
@@ -94,7 +95,7 @@ LEAD_WEBHOOK_URL=
 LEAD_WEBHOOK_SECRET=
 ```
 
-Do not set these variables during Phase 5-G.
+Do not set these variables during Phase 5-I. They are reserved for future provider integration phases.
 
 Do not put provider secrets, destination credentials, or private tokens in `NUXT_PUBLIC_*`.
 
@@ -107,6 +108,27 @@ You do not need to set `LEAD_DESTINATION_MODE` in Cloudflare for Phase 5-H.
 Future real destination phases will require provider secrets, but those secrets must remain server-side and must not use `NUXT_PUBLIC_*`.
 
 Phase 5-H adds only a mock destination adapter scaffold. It does not enable real Email, Sheets, CRM, webhook, or database delivery.
+
+### Future Resend Variables
+
+Resend is the recommended v1 Email notification provider.
+
+Future Resend variables:
+
+```env
+LEAD_EMAIL_PROVIDER=resend
+RESEND_API_KEY=
+LEAD_EMAIL_TO=
+LEAD_EMAIL_FROM=
+LEAD_EMAIL_REPLY_TO=
+```
+
+- These are server-side variables.
+- Do not prefix them with `NUXT_PUBLIC`.
+- Do not set them in Phase 5-I.
+- Production should remain `LEAD_DESTINATION_MODE=mock`.
+- `RESEND_API_KEY` must never be committed to Git.
+- Real email sending should wait until the sender domain or sender identity is verified.
 
 ## Build Settings
 
